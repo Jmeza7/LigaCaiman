@@ -20,7 +20,7 @@
       "startDate": null,
       "endDate": null,
       "dataDir": "t2",
-      "config": { "keeperMinPJ": 2, "pointsPerWin": 3 }
+      "config": { "keeperMinPJ": 2, "pointsPerWin": 3, "pointsPerTie": 2 }
     }
   ]
 }

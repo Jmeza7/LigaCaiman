@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getArchivedSeasons } from "@/lib/seasons";
 import { buildSeasonHallOfFame, type SeasonAward } from "@/lib/hallOfFame";
+import { PlayerAvatar } from "@/app/components/PlayerAvatar";
 
 export const metadata: Metadata = {
   title: "Hall of Fame — Liga Caimán",
@@ -23,8 +24,7 @@ function AwardBlock({ award }: { award: SeasonAward }) {
       <div className="hof-winners">
         {first.winners.map((w) => (
           <Link key={w.id} href={`/jugador/${w.id}`} className="hof-winner hof-winner-1">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`/animations/${w.id}.jpg`} alt={w.name} />
+            <PlayerAvatar id={w.id} size={56} />
             <div className="hof-winner-name">{w.name}</div>
             <div className="hof-winner-val">{first.value.toFixed(award.decimals)} {award.unit}</div>
           </Link>

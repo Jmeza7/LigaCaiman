@@ -326,6 +326,7 @@ body {
 .form-mini span { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; font-family: var(--f-disp); font-weight: 700; font-size: 11px; }
 .form-mini .W { color: var(--lime); background: rgba(184, 255, 46, 0.12); }
 .form-mini .L { color: var(--red); background: rgba(255, 77, 77, 0.12); }
+.form-mini .T { color: var(--gold); background: rgba(255, 197, 61, 0.12); }
 .form-mini .N { color: var(--mut-2); background: var(--card-hi); }
 @media (max-width: 620px) { .srow { grid-template-columns: 30px 1fr auto; } .form-mini { display: none; } }
 
@@ -565,6 +566,9 @@ body {
 .fc-photo-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px; display: block; filter: saturate(1.08) contrast(1.04); }
 .fc-noimg { position: absolute; inset: 0; border-radius: 12px; display: grid; place-items: center; background: radial-gradient(80% 80% at 50% 30%, rgba(184, 255, 46, 0.16), transparent 60%), linear-gradient(160deg, #15181f, #0a0c10); }
 .fc-noimg span { font-family: var(--f-disp); font-weight: 700; font-size: 72px; text-transform: uppercase; color: rgba(184, 255, 46, 0.5); }
+
+.pavatar-initials { background: radial-gradient(80% 80% at 50% 30%, rgba(184, 255, 46, 0.16), transparent 60%), linear-gradient(160deg, #15181f, #0a0c10); }
+.pavatar-initials span { font-family: var(--f-disp); font-weight: 700; text-transform: uppercase; color: rgba(184, 255, 46, 0.55); letter-spacing: -0.02em; }
 .fc-video { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; border-radius: 12px; display: block; filter: saturate(1.08) contrast(1.04); }
 .fc-photo-fade { position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: 12px; background: linear-gradient(180deg, transparent 55%, rgba(10, 12, 16, 0.55) 88%, rgba(6, 7, 10, 0.85)); }
 .fc-shadow { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 60%; height: 16px; border-radius: 50%; background: radial-gradient(rgba(0, 0, 0, 0.6), transparent 70%); }
@@ -606,6 +610,7 @@ body {
 .form-pill { width: 56px; height: 56px; border-radius: 13px; display: grid; place-items: center; font-family: var(--f-disp); font-weight: 700; font-size: 26px; border: 1px solid var(--line-2); position: relative; }
 .form-pill.W { color: var(--lime); background: rgba(184, 255, 46, 0.1); box-shadow: 0 0 24px -6px rgba(184, 255, 46, 0.45); border-color: rgba(184, 255, 46, 0.4); }
 .form-pill.L { color: var(--red); background: rgba(255, 77, 77, 0.09); border-color: rgba(255, 77, 77, 0.3); }
+.form-pill.T { color: var(--gold); background: rgba(255, 197, 61, 0.1); border-color: rgba(255, 197, 61, 0.35); }
 .form-pill.N { color: var(--mut-2); }
 .form-pill .jn { position: absolute; top: 5px; right: 7px; font-family: var(--f-body); font-size: 9px; font-weight: 800; color: var(--mut); }
 
@@ -674,6 +679,7 @@ body {
 .hrow .res { width: 46px; height: 46px; border-radius: 11px; display: grid; place-items: center; font-family: var(--f-disp); font-weight: 700; font-size: 24px; }
 .hrow .res.W { color: var(--lime); background: rgba(184, 255, 46, 0.1); }
 .hrow .res.L { color: var(--red); background: rgba(255, 77, 77, 0.1); }
+.hrow .res.T { color: var(--gold); background: rgba(255, 197, 61, 0.1); }
 .hrow .mid .jn { font-family: var(--f-body); font-weight: 800; font-size: 11px; letter-spacing: 1.5px; color: var(--mut); }
 .hrow .mid .mt { margin-top: 3px; font-size: 15px; }
 .hrow .mid .mt b { color: var(--ink); } .hrow .mid .mt span { color: var(--mut); }
@@ -793,7 +799,7 @@ body {
 
 .hof-winners { display: flex; flex-wrap: wrap; gap: 10px; }
 .hof-winner { display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; color: inherit; flex: 1; min-width: 90px; }
-.hof-winner img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); margin-bottom: 8px; }
+.hof-winner img, .hof-winner .pavatar-initials { border: 2px solid var(--gold); margin-bottom: 8px; }
 .hof-winner-name { font-family: var(--f-disp); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: -0.01em; }
 .hof-winner-val { font-family: var(--f-num); font-weight: 700; font-size: 13px; color: var(--gold); margin-top: 2px; }
 

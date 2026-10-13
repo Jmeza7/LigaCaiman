@@ -2,6 +2,7 @@ import { getPlayer, createSeasonStats } from "@/lib/stats";
 import { getSeason, type Season } from "@/lib/seasons";
 import { getSeasonBundle } from "@/lib/season-data";
 import { rankWithTies } from "@/lib/awards";
+import { getPartidos, jornadaTotalGoals } from "@/lib/jornada-helpers";
 import recordsData from "@/data/records.json";
 
 export type AwardWinner = { id: string; name: string };
@@ -63,9 +64,11 @@ function toAward(
 function caimanOroCounts(jornadas: ReturnType<typeof getSeasonBundle>["jornadas"]) {
   const counts: Record<string, number> = {};
   for (const j of jornadas) {
-    for (const m of j.mvps) {
-      if (m.type !== "normal") continue;
-      counts[m.playerId] = (counts[m.playerId] ?? 0) + 1;
+    for (const p of getPartidos(j)) {
+      for (const m of p.mvps) {
+        if (m.type !== "normal") continue;
+        counts[m.playerId] = (counts[m.playerId] ?? 0) + 1;
+      }
     }
   }
   return Object.entries(counts).map(([id, count]) => ({ id, count }));
@@ -76,29 +79,31 @@ function maxGoalsInMatch(jornadas: ReturnType<typeof getSeasonBundle>["jornadas"
   let max = 0;
   let holders: { playerId: string; jornada: number }[] = [];
   for (const j of jornadas) {
-    const perPlayer: Record<string, number> = {};
-    for (const g of j.goals) {
-      if (!g.countsForStats) continue;
-      perPlayer[g.scorer] = (perPlayer[g.scorer] ?? 0) + 1;
-    }
-    for (const [playerId, goals] of Object.entries(perPlayer)) {
-      if (goals > max) {
-        max = goals;
-        holders = [{ playerId, jornada: j.number }];
-      } else if (goals === max && max > 0) {
-        holders.push({ playerId, jornada: j.number });
+    for (const p of getPartidos(j)) {
+      const perPlayer: Record<string, number> = {};
+      for (const g of p.goals) {
+        if (!g.countsForStats) continue;
+        perPlayer[g.scorer] = (perPlayer[g.scorer] ?? 0) + 1;
+      }
+      for (const [playerId, goals] of Object.entries(perPlayer)) {
+        if (goals > max) {
+          max = goals;
+          holders = [{ playerId, jornada: j.number }];
+        } else if (goals === max && max > 0) {
+          holders.push({ playerId, jornada: j.number });
+        }
       }
     }
   }
   return { max, holders };
 }
 
-/** Jornada(s) con más goles totales. */
+/** Jornada(s) con más goles totales (sumando todos sus partidos si tiene más de uno). */
 function jornadaWithMostGoals(jornadas: ReturnType<typeof getSeasonBundle>["jornadas"]) {
   let max = 0;
   let holders: number[] = [];
   for (const j of jornadas) {
-    const total = j.result.home + j.result.away;
+    const total = jornadaTotalGoals(j);
     if (total > max) {
       max = total;
       holders = [j.number];
@@ -111,25 +116,28 @@ function jornadaWithMostGoals(jornadas: ReturnType<typeof getSeasonBundle>["jorn
 
 /**
  * Mayor remontada acabada en victoria: el mayor déficit que remontó el equipo que
- * terminó ganando. Solo se puede calcular en las jornadas con `scoreAfter` gol a
- * gol (J5 en adelante en T1) — se señala el alcance real en la nota.
+ * terminó ganando, dentro de un único partido. Solo se puede calcular en los
+ * partidos con `scoreAfter` gol a gol (J5 en adelante en T1) — se señala el
+ * alcance real en la nota.
  */
 function biggestComeback(jornadas: ReturnType<typeof getSeasonBundle>["jornadas"]) {
   let best = { deficit: 0, jornada: 0, team: "" as "home" | "away" | "" };
   const scopedJornadas: number[] = [];
   for (const j of jornadas) {
-    if (!j.goals.some((g) => g.scoreAfter)) continue;
-    scopedJornadas.push(j.number);
-    const finalWinner: "home" | "away" | null =
-      j.result.home === j.result.away ? null : j.result.home > j.result.away ? "home" : "away";
-    if (!finalWinner) continue;
-    let maxDeficit = 0;
-    for (const g of j.goals) {
-      if (!g.scoreAfter) continue;
-      const diff = finalWinner === "home" ? g.scoreAfter.away - g.scoreAfter.home : g.scoreAfter.home - g.scoreAfter.away;
-      if (diff > maxDeficit) maxDeficit = diff;
+    for (const p of getPartidos(j)) {
+      if (!p.goals.some((g) => g.scoreAfter)) continue;
+      if (!scopedJornadas.includes(j.number)) scopedJornadas.push(j.number);
+      const finalWinner: "home" | "away" | null =
+        p.result.home === p.result.away ? null : p.result.home > p.result.away ? "home" : "away";
+      if (!finalWinner) continue;
+      let maxDeficit = 0;
+      for (const g of p.goals) {
+        if (!g.scoreAfter) continue;
+        const diff = finalWinner === "home" ? g.scoreAfter.away - g.scoreAfter.home : g.scoreAfter.home - g.scoreAfter.away;
+        if (diff > maxDeficit) maxDeficit = diff;
+      }
+      if (maxDeficit > best.deficit) best = { deficit: maxDeficit, jornada: j.number, team: finalWinner };
     }
-    if (maxDeficit > best.deficit) best = { deficit: maxDeficit, jornada: j.number, team: finalWinner };
   }
   return { best, scopedJornadas };
 }

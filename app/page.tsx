@@ -4,9 +4,11 @@ import { getActiveSeason } from "@/lib/seasons";
 import { getSeasonBundle } from "@/lib/season-data";
 import { resolveJornadaMedia } from "@/lib/season-media";
 import { rankWithTies } from "@/lib/awards";
+import { jornadaTeamsSummary } from "@/lib/jornada-helpers";
 import { CelebrationVideo } from "@/app/components/CelebrationVideo";
 import { CountUp } from "@/app/components/CountUp";
 import { J6Audio } from "@/app/components/J6Audio";
+import { PlayerAvatar } from "@/app/components/PlayerAvatar";
 
 function Sparkline({ data, color }: { data: number[]; color: string }) {
   const W = 150;
@@ -169,8 +171,10 @@ function HomeWithData({
   ].filter((l) => l.ids.length > 0);
   const noLeaders = leaders.length === 0;
 
-  const ca = teamColor(lastJornada.homeTeam.colors);
-  const cb = teamColor(lastJornada.awayTeam.colors);
+  const { teams: lastJornadaTeams } = jornadaTeamsSummary(lastJornada);
+  const [teamA, teamB] = lastJornadaTeams;
+  const ca = teamA ? teamColor(teamA.colors) : "#e7e7ea";
+  const cb = teamB ? teamColor(teamB.colors) : "#e7e7ea";
 
   return (
     <>
@@ -184,8 +188,7 @@ function HomeWithData({
               const names = l.ids.map((id) => getPlayer(id)?.displayName ?? id);
               return (
                 <Link key={l.role} href={href} className="lcard" style={{ ["--accent" as string]: l.accent }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img className="ph" src={`/animations/${l.ids[0]}.jpg`} alt={names[0]} />
+                  <PlayerAvatar id={l.ids[0]} fill className="ph" />
                   <div className="veil" />
                   <div className="edge" />
                   <div className="body">
@@ -229,7 +232,7 @@ function HomeWithData({
         <Link href={`/jornadas/${lastJornada.number}`} className="j6-frame" style={{ display: "block" }}>
           {media.poster ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={media.poster} alt={`Jornada ${lastJornada.number} · ${lastJornada.homeTeam.name} vs ${lastJornada.awayTeam.name}`} />
+            <img src={media.poster} alt={`Jornada ${lastJornada.number} · ${teamA?.name ?? ""} vs ${teamB?.name ?? ""}`} />
           ) : (
             <div
               className="vs-header"
@@ -238,21 +241,21 @@ function HomeWithData({
               <div className="vs-bg"><div className="half l" /><div className="half r" /></div>
               <div className="vs-veil" />
               <div className="vs-stage">
-                <div className="vs-team home"><div className="tt">{lastJornada.homeTeam.name}</div></div>
+                <div className="vs-team home"><div className="tt">{teamA?.name}</div></div>
                 <div className="vs-center">
-                  <div className="score"><span className="h">{lastJornada.result.home}</span><span className="sep">·</span><span className="a">{lastJornada.result.away}</span></div>
+                  <div className="score"><span className="h">{teamA?.goalsFor}</span><span className="sep">·</span><span className="a">{teamB?.goalsFor}</span></div>
                   <div className="vslabel">VS</div>
                 </div>
-                <div className="vs-team away"><div className="tt">{lastJornada.awayTeam.name}</div></div>
+                <div className="vs-team away"><div className="tt">{teamB?.name}</div></div>
               </div>
             </div>
           )}
           <div className="glow" />
         </Link>
         <div className="j6-cap">
-          <span><b>{lastJornada.homeTeam.name}</b> · cap. {getPlayer(lastJornada.homeTeam.captain)?.displayName ?? lastJornada.homeTeam.captain}</span>
-          <span className="vs">{lastJornada.result.home} — {lastJornada.result.away}</span>
-          <span><b>{lastJornada.awayTeam.name}</b> · cap. {getPlayer(lastJornada.awayTeam.captain)?.displayName ?? lastJornada.awayTeam.captain}</span>
+          <span><b>{teamA?.name}</b> · cap. {teamA ? getPlayer(teamA.captain)?.displayName ?? teamA.captain : ""}</span>
+          <span className="vs">{teamA?.goalsFor} — {teamB?.goalsFor}</span>
+          <span><b>{teamB?.name}</b> · cap. {teamB ? getPlayer(teamB.captain)?.displayName ?? teamB.captain : ""}</span>
         </div>
       </section>
     </>

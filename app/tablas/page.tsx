@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { getPlayer, keeperAdjusted, createSeasonStats } from "@/lib/stats";
 import { getActiveSeason } from "@/lib/seasons";
 import { getSeasonBundle } from "@/lib/season-data";
+import { allMvpsIn, getPartidos } from "@/lib/jornada-helpers";
 import { TablasView } from "@/app/components/TablasView";
 
 export default function TablasPage() {
@@ -13,12 +14,17 @@ export default function TablasPage() {
     .map((k) => ({ ...k, avg: k.conceded / k.pj, adj: keeperAdjusted(k.conceded, k.pj) }))
     .sort((a, b) => a.adj - b.adj || (getPlayer(a.playerId)?.displayName ?? "").localeCompare(getPlayer(b.playerId)?.displayName ?? ""));
 
-  const oroByJornada = jornadas.map((j) => ({
-    n: j.number,
-    narr: j.narrative,
-    winners: j.mvps.filter((m) => m.type === "normal").map((m) => m.playerId),
-    honor: j.mvps.filter((m) => m.type === "honorary"),
-  }));
+  const oroByJornada = jornadas.map((j) => {
+    const mvps = allMvpsIn(j);
+    return {
+      n: j.number,
+      narr: j.narrative,
+      winners: mvps.filter((m) => m.type === "normal").map((m) => m.playerId),
+      honor: mvps.filter((m) => m.type === "honorary"),
+    };
+  });
+
+  const pendingIda = jornadas.some((j) => getPartidos(j).some((p) => p.pending?.goals));
 
   const goleadores = stats.computeGoalscorers().map((g) => ({ id: g.id, v: g.goals, sub: getPlayer(g.id)?.status === "emergency_sub" }));
   const asistencias = stats.computeAssists().map((a) => ({ id: a.id, v: a.assists, sub: getPlayer(a.id)?.status === "emergency_sub" }));
@@ -38,6 +44,7 @@ export default function TablasPage() {
           pointsPerWin={stats.pointsPerWin}
           jornadaCount={jornadas.length}
           subtitle={jornadas.length > 0 ? `tras J${jornadas[jornadas.length - 1].number}` : season.name}
+          pendingNotice={pendingIda ? "Hay datos de alguna jornada todavía pendientes de completar (ida, MVP o minutos) — estas tablas se actualizarán cuando se añadan." : null}
         />
       </Suspense>
     </div>

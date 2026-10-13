@@ -3,6 +3,8 @@ import temporadasData from "@/data/temporadas.json";
 export type SeasonConfig = {
   keeperMinPJ: number;
   pointsPerWin: number;
+  /** Puntos por jornada empatada con reparto especial (p.ej. ida/vuelta 13-13). Default 0 si no se define. */
+  pointsPerTie?: number;
 };
 
 export type Season = {

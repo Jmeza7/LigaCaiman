@@ -75,6 +75,8 @@ export type TablasViewProps = {
   jornadaCount: number;
   /** Texto bajo el título, p.ej. "tras J9" o "Archivo · Temporada 1". */
   subtitle: string;
+  /** Si no es null, se muestra un aviso discreto encima de las pestañas (p.ej. datos de una ida pendientes). */
+  pendingNotice?: string | null;
 };
 
 export function TablasView({
@@ -89,6 +91,7 @@ export function TablasView({
   pointsPerWin,
   jornadaCount,
   subtitle,
+  pendingNotice,
 }: TablasViewProps) {
   const sp = useSearchParams();
   const initial = TABS.some((t) => t.key === sp.get("tab")) ? (sp.get("tab") as TabKey) : "ganadores";
@@ -103,6 +106,13 @@ export function TablasView({
         <h1 className="big brand-grad gradient-text">Tablas oficiales</h1>
         <div className="sub">Las 6 clasificaciones · {subtitle}</div>
       </header>
+
+      {pendingNotice && (
+        <div className="callout note" style={{ marginBottom: 18 }}>
+          <span className="ci">⏳</span>
+          <div className="cd">{pendingNotice}</div>
+        </div>
+      )}
 
       <div className="tabs">
         {TABS.map((t) => (
@@ -123,7 +133,7 @@ export function TablasView({
               <div className="standings">
                 {standings.map((p, i) => {
                   const rk = i + 1;
-                  const form = p.record.map((r) => (r === "W" ? "W" : r === "L" ? "L" : "N"));
+                  const form = p.record.map((r) => (r === "W" ? "W" : r === "L" ? "L" : r === "T" ? "T" : "N"));
                   return (
                     <Link key={p.playerId} href={`/jugador/${p.playerId}`} className={`srow ${rk === 1 ? "top1" : topCls(rk)}`}>
                       <div className="rk">{rk}</div>
@@ -134,7 +144,7 @@ export function TablasView({
                       </div>
                       <div className="form-mini">
                         {form.map((c, k) => (
-                          <span key={k} className={c}>{c === "N" ? "·" : c}</span>
+                          <span key={k} className={c}>{c === "N" ? "·" : c === "T" ? "E" : c}</span>
                         ))}
                       </div>
                       <div className={`pts${p.points >= 9 ? " lime" : ""}`}>{p.points}</div>

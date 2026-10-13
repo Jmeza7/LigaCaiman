@@ -2,6 +2,7 @@ import playersData from "@/data/players.json";
 import type { SeasonBundle } from "@/lib/season-data";
 import type { SeasonConfig } from "@/lib/seasons";
 import type { Player, Goal, MVP, Team, Jornada, CardStat, FullProfile, KeeperRaw } from "@/lib/types";
+import { allGoalsIn, allMvpsIn, jornadaTotalGoals, outcomeFor, jornadaTeamsSummary } from "@/lib/jornada-helpers";
 
 export type { Player, Goal, MVP, Team, Jornada, CardStat, FullProfile };
 
@@ -33,6 +34,7 @@ export function createSeasonStats(bundle: SeasonBundle, config: SeasonConfig) {
   const { jornadas, rankings: rankingsData, celebrations: celebrationsData } = bundle;
   const keeperMinPJ = config.keeperMinPJ ?? KEEPER_MIN_PJ;
   const pointsPerWin = config.pointsPerWin ?? 3;
+  const pointsPerTie = config.pointsPerTie ?? 0;
 
   function computeGoalscorers() {
     return rankingsData.goleadores
@@ -50,7 +52,7 @@ export function createSeasonStats(bundle: SeasonBundle, config: SeasonConfig) {
   function cumulativeGoals(id: string): number[] {
     let acc = 0;
     return jornadas.map((j) => {
-      acc += j.goals.filter((g) => g.countsForStats && g.scorer === id).length;
+      acc += allGoalsIn(j).filter((g) => g.countsForStats && g.scorer === id).length;
       return acc;
     });
   }
@@ -59,7 +61,7 @@ export function createSeasonStats(bundle: SeasonBundle, config: SeasonConfig) {
   function cumulativeAssists(id: string): number[] {
     let acc = 0;
     return jornadas.map((j) => {
-      acc += j.goals.filter((g) => g.countsForStats && g.assist === id && g.assist !== g.scorer).length;
+      acc += allGoalsIn(j).filter((g) => g.countsForStats && g.assist === id && g.assist !== g.scorer).length;
       return acc;
     });
   }
@@ -71,17 +73,18 @@ export function createSeasonStats(bundle: SeasonBundle, config: SeasonConfig) {
     let acc = 0;
     return row.record.map((r) => {
       if (r === "W") acc += pointsPerWin;
+      else if (r === "T") acc += pointsPerTie;
       return acc;
     });
   }
 
   /** Goles totales por jornada + media de la liga + % vs media. */
   function jornadaStats(n: number) {
-    const totals = jornadas.map((j) => j.result.home + j.result.away);
+    const totals = jornadas.map((j) => jornadaTotalGoals(j));
     if (totals.length === 0) return { total: 0, avg: 0, pct: 0 };
     const avg = totals.reduce((a, b) => a + b, 0) / totals.length;
     const j = jornadas.find((x) => x.number === n);
-    const total = j ? j.result.home + j.result.away : 0;
+    const total = j ? jornadaTotalGoals(j) : 0;
     const pct = avg === 0 ? 0 : Math.round(((total - avg) / avg) * 100);
     return { total, avg: Math.round(avg * 10) / 10, pct };
   }
@@ -91,7 +94,10 @@ export function createSeasonStats(bundle: SeasonBundle, config: SeasonConfig) {
     const row = rankingsData.standings.find((s) => s.playerId === playerId);
     if (!row) return 0;
     let pts = 0;
-    for (let i = 0; i < k && i < row.record.length; i++) if (row.record[i] === "W") pts += pointsPerWin;
+    for (let i = 0; i < k && i < row.record.length; i++) {
+      if (row.record[i] === "W") pts += pointsPerWin;
+      else if (row.record[i] === "T") pts += pointsPerTie;
+    }
     return pts;
   }
 
@@ -128,23 +134,23 @@ export function createSeasonStats(bundle: SeasonBundle, config: SeasonConfig) {
     // goles/asistencias = dato autoritativo (rankings.json de la temporada), no recuento de goles
     const goals = rankingsData.goleadores.find((g) => g.playerId === id)?.goals ?? 0;
     const assists = rankingsData.asistencias.find((a) => a.playerId === id)?.assists ?? 0;
-    let played = 0, wins = 0, losses = 0, oro = 0;
+    let played = 0, wins = 0, losses = 0, ties = 0, oro = 0;
     for (const j of jornadas) {
-      const onHome = j.homeTeam.players.includes(id);
-      const onAway = j.awayTeam.players.includes(id);
-      if (onHome || onAway) {
+      const { outcome } = outcomeFor(j, id);
+      if (outcome) {
         played++;
-        const won = onHome ? j.result.home > j.result.away : j.result.away > j.result.home;
-        if (won) wins++; else losses++;
+        if (outcome === "W") wins++;
+        else if (outcome === "L") losses++;
+        else ties++;
       }
-      for (const m of j.mvps) if (m.playerId === id && m.type === "normal") oro++;
+      for (const m of allMvpsIn(j)) if (m.playerId === id && m.type === "normal") oro++;
     }
     const gIdx = rankingsData.globalRanking.findIndex((r) => r.playerId === id);
     const gEntry = gIdx >= 0 ? rankingsData.globalRanking[gIdx] : null;
     const standing = rankingsData.standings.find((s) => s.playerId === id);
     const keeperData = rankingsData.keepers.find((k) => k.playerId === id);
     return {
-      goals, assists, played, wins, losses, points: wins * pointsPerWin,
+      goals, assists, played, wins, losses, points: wins * pointsPerWin + ties * pointsPerTie,
       ranking: gEntry ? gEntry.score : null,
       rankPos: gIdx >= 0 ? gIdx + 1 : null,
       rankVotes: gEntry ? gEntry.votes : 0,
@@ -199,7 +205,9 @@ export function createSeasonStats(bundle: SeasonBundle, config: SeasonConfig) {
     const edition = b.oro > 0 && b.goals >= 12 ? "PICHICHI" : b.oro > 0 ? "MVP" : b.unbeaten ? "INVICTO" : "OFICIAL";
 
     const standing = rankingsData.standings.find((s) => s.playerId === id);
-    const form = standing ? standing.record.map((r) => (r === "W" ? "W" : r === "L" ? "L" : "N")) : jornadas.map(() => "N");
+    const form = standing
+      ? standing.record.map((r) => (r === "W" ? "W" : r === "L" ? "L" : r === "T" ? "T" : "N"))
+      : jornadas.map(() => "N");
 
     // posición en cada tabla
     const gIdx = computeGoalscorers().findIndex((g) => g.id === id);
@@ -212,28 +220,31 @@ export function createSeasonStats(bundle: SeasonBundle, config: SeasonConfig) {
     const chemMap: Record<string, { w: number; l: number }> = {};
     let cumP = 0;
     for (const j of jornadas) {
-      const onHome = j.homeTeam.players.includes(id);
-      const onAway = j.awayTeam.players.includes(id);
-      if (!onHome && !onAway) continue;
-      const team = onHome ? j.homeTeam : j.awayTeam;
-      const opp = onHome ? j.awayTeam : j.homeTeam;
-      const won = onHome ? j.result.home > j.result.away : j.result.away > j.result.home;
-      if (won) cumP += pointsPerWin;
-      const g = j.goals.filter((x) => x.countsForStats && x.scorer === id).length;
-      const a = j.goals.filter((x) => x.countsForStats && x.assist === id && x.assist !== x.scorer).length;
-      const oro = j.mvps.some((m) => m.playerId === id && m.type === "normal");
+      const { outcome, team, opp } = outcomeFor(j, id);
+      if (!outcome || !team || !opp) continue;
+      if (outcome === "W") cumP += pointsPerWin;
+      else if (outcome === "T") cumP += pointsPerTie;
+      const jGoals = allGoalsIn(j);
+      const g = jGoals.filter((x) => x.countsForStats && x.scorer === id).length;
+      const a = jGoals.filter((x) => x.countsForStats && x.assist === id && x.assist !== x.scorer).length;
+      const oro = allMvpsIn(j).some((m) => m.playerId === id && m.type === "normal");
+      const { teams } = jornadaTeamsSummary(j);
+      const myTeam = teams.find((t) => t.name === team.name);
+      const score = myTeam ? `${myTeam.goalsFor}-${myTeam.goalsAgainst}` : "";
       history.push({
         n: j.number,
-        res: won ? "W" : "L",
+        res: outcome,
         team: team.name,
         opp: opp.name,
-        score: `${onHome ? j.result.home : j.result.away}-${onHome ? j.result.away : j.result.home}`,
+        score,
         g, a, oro, cumP,
       });
-      for (const mate of team.players) {
-        if (mate === id) continue;
-        if (!chemMap[mate]) chemMap[mate] = { w: 0, l: 0 };
-        if (won) chemMap[mate].w++; else chemMap[mate].l++;
+      if (outcome !== "T") {
+        for (const mate of team.players) {
+          if (mate === id) continue;
+          if (!chemMap[mate]) chemMap[mate] = { w: 0, l: 0 };
+          if (outcome === "W") chemMap[mate].w++; else chemMap[mate].l++;
+        }
       }
     }
 
@@ -280,6 +291,7 @@ export function createSeasonStats(bundle: SeasonBundle, config: SeasonConfig) {
     celebrationsData,
     keeperMinPJ,
     pointsPerWin,
+    pointsPerTie,
     computeGoalscorers,
     computeAssists,
     cumulativeGoals,

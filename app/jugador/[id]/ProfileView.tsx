@@ -449,7 +449,7 @@ export default function ProfileView({
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 24 }}>
                 <div className="form-row">
                   {p.form.map((r, k) => (
-                    <div key={k} className={`form-pill ${r}`}><span className="jn">J{k + 1}</span>{r === "N" ? "·" : r}</div>
+                    <div key={k} className={`form-pill ${r}`}><span className="jn">J{k + 1}</span>{r === "N" ? "·" : r === "T" ? "E" : r}</div>
                   ))}
                 </div>
                 <div style={{ textAlign: "right" }}>
@@ -516,7 +516,7 @@ export default function ProfileView({
                 const [a, b] = d.score.split("-");
                 return (
                   <Link key={d.n} href={`/jornadas/${d.n}`} className="hrow">
-                    <div className={`res ${d.res}`}>{d.res === "W" ? "V" : "D"}</div>
+                    <div className={`res ${d.res}`}>{d.res === "W" ? "V" : d.res === "T" ? "E" : "D"}</div>
                     <div className="mid">
                       <div className="jn">JORNADA {d.n}{d.oro ? "  ·  🐊 CAIMÁN DE ORO" : ""}</div>
                       <div className="mt"><b>{d.team}</b> <span>vs {d.opp}</span></div>
