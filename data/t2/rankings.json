@@ -1,0 +1,42 @@
+{
+  "goleadores": [
+    { "playerId": "josef", "goals": 2 },
+    { "playerId": "danthony", "goals": 2 },
+    { "playerId": "meza", "goals": 1 },
+    { "playerId": "gato", "goals": 1 },
+    { "playerId": "danifrg", "goals": 1 },
+    { "playerId": "ale", "goals": 1 },
+    { "playerId": "armando", "goals": 1 },
+    { "playerId": "oscar-2", "goals": 1 },
+    { "playerId": "jose-gonzalez", "goals": 1 },
+    { "playerId": "alfredo", "goals": 1 }
+  ],
+  "asistencias": [
+    { "playerId": "meza", "assists": 2 },
+    { "playerId": "armando", "assists": 2 },
+    { "playerId": "josef", "assists": 1 }
+  ],
+  "keepers": [
+    { "playerId": "daniscule", "pj": 1, "conceded": 9 },
+    { "playerId": "oscar-2", "pj": 0.66667, "conceded": 3 },
+    { "playerId": "jose-gonzalez", "pj": 0.33333, "conceded": 1 }
+  ],
+  "globalRanking": [],
+  "standings": [
+    { "playerId": "danifrg", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "gato", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "daniscule", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "ale", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "xanderson", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "josephine", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "marco", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "meza", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "jose-gonzalez", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "josef", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "armando", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "alfredo", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "oscar-2", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "carlos", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "danthony", "record": ["T"], "points": 2, "isUnbeaten": true }
+  ]
+}

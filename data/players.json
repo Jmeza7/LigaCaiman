@@ -29,6 +29,9 @@
   { "id": "oragman", "displayName": "Oragman", "aliases": [], "status": "active", "joinedJornada": 9, "tags": [] },
   { "id": "oscar-2", "displayName": "Oscar 2", "aliases": ["Oscar (J9)"], "status": "active", "joinedJornada": 9, "tags": [] },
   { "id": "redone", "displayName": "Redone", "aliases": [], "status": "left", "joinedJornada": 1, "tags": [] },
+  { "id": "ale", "displayName": "Ale", "aliases": [], "status": "active", "joinedJornada": 1, "tags": [] },
+  { "id": "alfredo", "displayName": "Alfredo", "aliases": [], "status": "active", "joinedJornada": 1, "tags": [] },
+  { "id": "carlos", "displayName": "Carlos", "aliases": [], "status": "active", "joinedJornada": 1, "tags": [] },
   { "id": "alvarino", "displayName": "Alvarino", "aliases": [], "status": "pending_debut", "joinedJornada": null, "tags": [] },
   { "id": "juan-suplente", "displayName": "Juan", "aliases": [], "status": "emergency_sub", "joinedJornada": null, "tags": ["emergency_sub"] }
 ]

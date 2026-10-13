@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CountUp } from "@/app/components/CountUp";
 import { CelebrationVideo } from "@/app/components/CelebrationVideo";
 import type { FullProfile, CardStat } from "@/lib/stats";
+import type { CareerProfile } from "@/lib/career";
 
 type Rival = { id: string; name: string; tag: string; cardStats: CardStat[] };
 type Achievement = { id: string; name: string; desc: string; icon: string; got: boolean; rare: string };
@@ -203,6 +204,51 @@ function Chemistry({ items }: { items: FullProfile["chem"] }) {
   );
 }
 
+/* ---------- vitrina de trofeos por temporada ---------- */
+function TrophyCase({ trophies }: { trophies: CareerProfile["trophies"] }) {
+  if (trophies.length === 0) {
+    return <div className="panel" style={{ color: "var(--mut)", textAlign: "center" }}>Aún sin trofeos · esperando su primera temporada archivada.</div>;
+  }
+  return (
+    <div className="trophy-grid">
+      {trophies.map((t, i) => (
+        <div key={i} className="trophy">
+          <span className="ic">{t.icon}</span>
+          <div className="tt">{t.title}</div>
+          <div className="ts">{t.seasonLabel}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ---------- carrera: acumulado cruzando todas las temporadas ---------- */
+function CareerSection({ career }: { career: CareerProfile }) {
+  if (career.bySeason.length === 0) return null;
+  return (
+    <div className="panel">
+      <div className="career-rows">
+        {career.bySeason.map((s) => (
+          <div key={s.seasonId} className="career-row">
+            <div className="sn">{s.seasonLabel}</div>
+            <div className="cv"><b>{s.goals}</b><small>goles</small></div>
+            <div className="cv"><b>{s.assists}</b><small>asist.</small></div>
+            <div className="cv"><b>{s.played}</b><small>PJ</small></div>
+            <div className="cv"><b>{s.points}</b><small>pts</small></div>
+          </div>
+        ))}
+      </div>
+      <div className="career-row career-total">
+        <div className="sn">Total carrera</div>
+        <div className="cv"><b>{career.totals.goals}</b><small>goles</small></div>
+        <div className="cv"><b>{career.totals.assists}</b><small>asist.</small></div>
+        <div className="cv"><b>{career.totals.played}</b><small>PJ</small></div>
+        <div className="cv"><b>{career.totals.points}</b><small>pts</small></div>
+      </div>
+    </div>
+  );
+}
+
 function Comparativa({ me, rivals }: { me: FullProfile; rivals: Rival[] }) {
   const [idx, setIdx] = useState(0);
   if (!rivals.length) return null;
@@ -255,12 +301,14 @@ export default function ProfileView({
   rivals,
   achievements,
   leagueMaxGoals,
+  career,
 }: {
   p: FullProfile;
   order: OrderItem[];
   rivals: Rival[];
   achievements: Achievement[];
   leagueMaxGoals: number;
+  career: CareerProfile;
 }) {
   const i = order.findIndex((o) => o.id === p.id);
   const prev = i > 0 ? order[i - 1] : null;
@@ -401,7 +449,7 @@ export default function ProfileView({
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 24 }}>
                 <div className="form-row">
                   {p.form.map((r, k) => (
-                    <div key={k} className={`form-pill ${r}`}><span className="jn">J{k + 1}</span>{r === "N" ? "·" : r}</div>
+                    <div key={k} className={`form-pill ${r}`}><span className="jn">J{k + 1}</span>{r === "N" ? "·" : r === "T" ? "E" : r}</div>
                   ))}
                 </div>
                 <div style={{ textAlign: "right" }}>
@@ -423,6 +471,18 @@ export default function ProfileView({
             <div className="d">Insignias que se desbloquean por lo que haces en la cancha.</div>
           </div>
           <Achievements items={achievements} />
+        </div>
+      </section>
+
+      {/* vitrina de trofeos */}
+      <section className="section">
+        <div className="lc-container">
+          <div className="section-head">
+            <div className="eyebrow">Historia</div>
+            <div className="t gradient-text">Vitrina de trofeos</div>
+            <div className="d">Lo que ganó temporada a temporada, una vez archivadas.</div>
+          </div>
+          <TrophyCase trophies={career.trophies} />
         </div>
       </section>
 
@@ -456,7 +516,7 @@ export default function ProfileView({
                 const [a, b] = d.score.split("-");
                 return (
                   <Link key={d.n} href={`/jornadas/${d.n}`} className="hrow">
-                    <div className={`res ${d.res}`}>{d.res === "W" ? "V" : "D"}</div>
+                    <div className={`res ${d.res}`}>{d.res === "W" ? "V" : d.res === "T" ? "E" : "D"}</div>
                     <div className="mid">
                       <div className="jn">JORNADA {d.n}{d.oro ? "  ·  🐊 CAIMÁN DE ORO" : ""}</div>
                       <div className="mt"><b>{d.team}</b> <span>vs {d.opp}</span></div>
@@ -472,6 +532,20 @@ export default function ProfileView({
                 );
               })}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* carrera */}
+      {career.bySeason.length > 0 && (
+        <section className="section">
+          <div className="lc-container">
+            <div className="section-head">
+              <div className="eyebrow">Acumulado</div>
+              <div className="t">Carrera</div>
+              <div className="d">Goles, asistencias y partidos sumando todas las temporadas jugadas.</div>
+            </div>
+            <CareerSection career={career} />
           </div>
         </section>
       )}

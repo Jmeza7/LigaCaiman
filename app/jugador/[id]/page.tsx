@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { players, getPlayer, buildFullProfile, playerOrder, cardStatsFor, computeGoalscorers } from "@/lib/stats";
-import rankingsData from "@/data/rankings.json";
+import { players, getPlayer, createSeasonStats, type FullProfile } from "@/lib/stats";
+import { getActiveSeason } from "@/lib/seasons";
+import { getSeasonBundle } from "@/lib/season-data";
+import { buildCareerProfile } from "@/lib/career";
 import ProfileView from "./ProfileView";
 
 export function generateStaticParams() {
@@ -17,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-function buildAchievements(p: NonNullable<ReturnType<typeof buildFullProfile>>, leagueMaxGoals: number) {
+function buildAchievements(p: FullProfile, leagueMaxGoals: number) {
   const maxJ = p.history.reduce((m, h) => Math.max(m, h.g), 0);
   const isTop = p.goals > 0 && p.goals === leagueMaxGoals;
   const A = [
@@ -40,22 +42,28 @@ function buildAchievements(p: NonNullable<ReturnType<typeof buildFullProfile>>, 
 
 export default async function JugadorPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const p = buildFullProfile(id);
+
+  const season = getActiveSeason();
+  const stats = createSeasonStats(getSeasonBundle(season.dataDir), season.config);
+
+  const p = stats.buildFullProfile(id);
   if (!p) notFound();
 
-  const order = playerOrder();
-  const leagueMaxGoals = computeGoalscorers()[0]?.goals ?? 0;
+  const career = buildCareerProfile(id)!;
+  const order = stats.playerOrder();
+  const leagueMaxGoals = stats.computeGoalscorers()[0]?.goals ?? 0;
   const achievements = buildAchievements(p, leagueMaxGoals);
 
+  const rankingsData = stats.rankingsData;
   const rivals = rankingsData.globalRanking
     .filter((r) => r.playerId !== id)
     .slice(0, 3)
-    .map((r, i) => ({
+    .map((r) => ({
       id: r.playerId,
       name: (getPlayer(r.playerId)?.displayName ?? r.playerId).toUpperCase(),
       tag: `#${rankingsData.globalRanking.findIndex((x) => x.playerId === r.playerId) + 1}`,
-      cardStats: cardStatsFor(r.playerId).cardStats,
+      cardStats: stats.cardStatsFor(r.playerId).cardStats,
     }));
 
-  return <ProfileView p={p} order={order} rivals={rivals} achievements={achievements} leagueMaxGoals={leagueMaxGoals} />;
+  return <ProfileView p={p} order={order} rivals={rivals} achievements={achievements} leagueMaxGoals={leagueMaxGoals} career={career} />;
 }

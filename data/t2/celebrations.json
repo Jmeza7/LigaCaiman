@@ -1,0 +1,5 @@
+{
+  "_comment": "Animación de celebración por jugador. media = ruta al .mp4 en /public/animations (se reproduce en loop, silenciado). Para jugadores sin entrada se muestra el placeholder 'default'.",
+  "default": { "emoji": "🐊", "style": "bounce", "media": null },
+  "players": {}
+}

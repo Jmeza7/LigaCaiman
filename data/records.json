@@ -1,0 +1,9 @@
+{
+  "_comment": "Solo lo que NO se puede derivar de jornadas.json/rankings.json. El resto (maximo de goles en un partido, jornada con mas goles, remontadas) se calcula en lib/hallOfFame.ts a partir de los datos.",
+  "t1": {
+    "seasonRecapEpisode": { "status": "pending", "youtubeId": null }
+  },
+  "t2": {
+    "seasonRecapEpisode": { "status": "pending", "youtubeId": null }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "_comment": "Registro de temporadas. currentSeasonId es la única fuente de verdad de cual es la activa; status es solo una etiqueta de visualizacion que debe coincidir con eso.",
+  "currentSeasonId": "t2",
+  "seasons": [
+    {
+      "id": "t1",
+      "number": 1,
+      "name": "Temporada 1",
+      "status": "archivada",
+      "startDate": "2026-04-13",
+      "endDate": "2026-06-28",
+      "dataDir": "t1",
+      "config": { "keeperMinPJ": 2, "pointsPerWin": 3 }
+    },
+    {
+      "id": "t2",
+      "number": 2,
+      "name": "Temporada 2",
+      "status": "activa",
+      "startDate": null,
+      "endDate": null,
+      "dataDir": "t2",
+      "config": { "keeperMinPJ": 2, "pointsPerWin": 3, "pointsPerTie": 2 }
+    }
+  ]
+}

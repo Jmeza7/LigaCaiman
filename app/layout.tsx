@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Space_Grotesk, JetBrains_Mono, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 
@@ -37,6 +38,8 @@ const NAV = [
   { href: "/", label: "Inicio" },
   { href: "/jornadas", label: "Jornadas" },
   { href: "/tablas", label: "Tablas" },
+  { href: "/temporadas", label: "Temporadas" },
+  { href: "/hall-of-fame", label: "Hall of Fame" },
   { href: "/reglamento", label: "Reglas" },
   { href: "/lista-espera", label: "Espera" },
 ];
@@ -49,17 +52,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="relative z-[1] flex flex-col min-h-screen">
           <nav className="lc-nav">
             <div className="lc-nav-in">
-              <a href="/" className="lc-logo">
+              <Link href="/" className="lc-logo">
                 <span className="mark">🐊</span>
                 <span className="name display">
                   <span className="a">LIGA</span> <span className="b">CAIMÁN</span>
                 </span>
-              </a>
+              </Link>
               <div className="lc-nav-links">
                 {NAV.map((l) => (
-                  <a key={l.href} href={l.href}>
+                  <Link key={l.href} href={l.href}>
                     {l.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
