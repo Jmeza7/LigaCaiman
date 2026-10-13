@@ -31,6 +31,8 @@ export type JornadaDetailViewProps = {
   top5: { id: string; name: string; pts: number; delta: number | "new" }[];
   /** p.ej. "Archivo · Temporada 1" — si se pasa, se muestra junto al título. */
   archivedLabel?: string;
+  /** p.ej. "T2" — si se pasa (temporadas distintas de la 1), se antepone a "Jornada N". */
+  jornadaPrefix?: string;
 };
 
 export function JornadaDetailView({
@@ -43,8 +45,11 @@ export function JornadaDetailView({
   jornadaStats: stats,
   top5,
   archivedLabel,
+  jornadaPrefix,
 }: JornadaDetailViewProps) {
   const num = j.number;
+  const jTitle = (n: number) => (jornadaPrefix ? `${jornadaPrefix} · Jornada ${n}` : `Jornada ${n}`);
+  const jShort = (n: number) => (jornadaPrefix ? `${jornadaPrefix} · J${n}` : `J${n}`);
   const ca = teamColor(j.homeTeam.colors);
   const cb = teamColor(j.awayTeam.colors);
   const dateStr = new Date(j.date + "T12:00:00")
@@ -104,13 +109,13 @@ export function JornadaDetailView({
         <>
           <div className="vs-poster-wrap">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={poster} alt={`${j.narrative ?? `Jornada ${num}`} · ${j.homeTeam.name} vs ${j.awayTeam.name}`} />
+            <img src={poster} alt={`${j.narrative ?? jTitle(num)} · ${j.homeTeam.name} vs ${j.awayTeam.name}`} />
             <div className="pe" />
           </div>
           <div className="jscore">
             <div className="js-meta">
-              <div className="narr">{j.narrative ?? `Jornada ${num}`}</div>
-              <div className="dt">Jornada {num} · {dateStr} · {total} goles</div>
+              <div className="narr">{j.narrative ?? jTitle(num)}</div>
+              <div className="dt">{jTitle(num)} · {dateStr} · {total} goles</div>
             </div>
             <div className="jt home">
               {j.homeTeam.name}
@@ -129,8 +134,8 @@ export function JornadaDetailView({
           <div className="vs-veil" />
           <div className="vs-spark" />
           <div className="vs-meta">
-            <div className="narr">{j.narrative ?? `Jornada ${num}`}</div>
-            <div className="dt">Jornada {num} · {dateStr}</div>
+            <div className="narr">{j.narrative ?? jTitle(num)}</div>
+            <div className="dt">{jTitle(num)} · {dateStr}</div>
           </div>
           <div className="vs-stage">
             <div className="vs-team home">
@@ -209,7 +214,7 @@ export function JornadaDetailView({
                   <div className="pveil" />
                 </div>
                 <div className="info">
-                  <span className="badge-oro">🐊 Caimán de Oro · J{num}</span>
+                  <span className="badge-oro">🐊 Caimán de Oro · {jShort(num)}</span>
                   <div className="mname">{dn(m.playerId)}</div>
                   <div className="mrole">MVP por votación del grupo</div>
                   <div className="mstats">
@@ -248,7 +253,7 @@ export function JornadaDetailView({
 
       {/* cambios en tablas */}
       <div className="jblock">
-        <div className="jblock-h"><span className="ic">🔀</span><span className="t">Lo que cambió en las tablas</span><span className="hint">Top 5 tras la J{num}</span></div>
+        <div className="jblock-h"><span className="ic">🔀</span><span className="t">Lo que cambió en las tablas</span><span className="hint">Top 5 tras la {jShort(num)}</span></div>
         <div className="changes">
           {top5.map((p, i) => (
             <Link key={p.id} href={`/jugador/${p.id}`} className={`crow ${i < 3 ? "t" + (i + 1) : ""}`}>

@@ -21,10 +21,14 @@ export default function ReglamentoPage() {
     <div className="lc-container" style={{ paddingBottom: 30 }}>
       <header className="doc-hero">
         <div className="kick" style={{ fontFamily: "var(--f-body)", fontWeight: 800, fontSize: 12, letterSpacing: 4, textTransform: "uppercase", color: "var(--mut)" }}>
-          Documento oficial · actualizado tras J5
+          Documento oficial · revisado al cierre de la Temporada 1
         </div>
         <h1 className="big gradient-text">Reglamento</h1>
         <div className="sub">Cómo funciona la Liga Caimán: del primer día de un fichaje al pitido final.</div>
+        <div className="callout info" style={{ marginTop: 10 }}>
+          <span className="ci">📌</span>
+          <div className="cd">Este reglamento sigue vigente en la Temporada 2 sin cambios. El sistema de puntos (3 por victoria) se mantiene igual.</div>
+        </div>
         <nav className="toc">
           {TOC.map((t) => (
             <a key={t.id} href={`#${t.id}`}><b>{t.n}</b>{t.label}</a>
@@ -152,7 +156,7 @@ export default function ReglamentoPage() {
             <p>Liga Caimán es una liga amateur con espíritu de comunidad. Algunas reglas pueden adaptarse por consenso del grupo ante situaciones excepcionales (lesiones de última hora, sustitutos invitados, clima…).</p>
             <p className="quote">&ldquo;Las reglas existen para que la liga funcione. Si una regla impide que la liga funcione bien, se discute y se adapta.&rdquo;</p>
           </div>
-          <div className="wait-foot" style={{ marginTop: 24 }}>Última revisión: tras Jornada 5 · @tandemxports</div>
+          <div className="wait-foot" style={{ marginTop: 24 }}>Última revisión: al cierre de la Temporada 1 · vigente en la Temporada 2 · @tandemxports</div>
         </section>
       </main>
     </div>

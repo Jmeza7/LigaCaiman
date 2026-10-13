@@ -148,6 +148,10 @@ body {
 }
 .lc-nav-links a:hover { color: var(--ink); }
 @media (max-width: 720px) { .lc-nav-links { gap: 16px; } .lc-nav-links a { font-size: 11px; letter-spacing: 1px; } }
+@media (max-width: 640px) {
+  .lc-nav-in { flex-wrap: wrap; row-gap: 10px; }
+  .lc-nav-links { flex-wrap: wrap; width: 100%; gap: 8px 14px; }
+}
 
 /* =========================================================
    FOOTER

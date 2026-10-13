@@ -214,7 +214,7 @@ function HomeWithData({
       <section className="lc-container j6" style={{ padding: "32px 28px 10px" }}>
         <div className="j6-head">
           <span className="j6-kick">
-            🏆 Última jornada · J{lastJornada.number}{lastJornada.narrative ? ` · ${lastJornada.narrative}` : ""}
+            🏆 Última jornada · {season.number !== 1 ? `T${season.number} · ` : ""}J{lastJornada.number}{lastJornada.narrative ? ` · ${lastJornada.narrative}` : ""}
           </span>
           {media.audio && (
             <J6Audio

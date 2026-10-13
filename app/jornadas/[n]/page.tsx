@@ -46,6 +46,7 @@ export default async function JornadaPage({ params }: { params: Promise<{ n: str
       poster={resolveJornadaMedia(season.number, num).poster}
       jornadaStats={stats.jornadaStats(num)}
       top5={stats.top5After(num)}
+      jornadaPrefix={season.number !== 1 ? `T${season.number}` : undefined}
     />
   );
 }
