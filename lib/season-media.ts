@@ -19,6 +19,8 @@ export type JornadaMedia = {
   heroVideo: string | null;
   /** Poster del vídeo de fondo del hero (public/videos/....jpg). */
   heroPoster: string | null;
+  /** Póster del Caimán de Oro de la jornada (p.ej. jornada1-mvp.png), si existe. */
+  mvpPoster: string | null;
 };
 
 /**
@@ -47,6 +49,7 @@ export function resolveJornadaMedia(seasonNumber: number, jornadaNumber: number)
       audio: firstExisting([`jornadas/${base}.mp3`]),
       heroVideo: firstExisting([`videos/${base}.mp4`]),
       heroPoster: firstExisting([`videos/${base}.jpg`, `videos/${base}.jpeg`, `videos/${base}.png`]),
+      mvpPoster: firstExisting([`jornadas/${base}-mvp.png`, `jornadas/${base}-mvp.jpg`, `jornadas/${base}-mvp.jpeg`]),
     };
   }
 
@@ -59,5 +62,6 @@ export function resolveJornadaMedia(seasonNumber: number, jornadaNumber: number)
     audio: firstExisting([`${dir}/jornada${jornadaNumber}.mp3`]),
     heroVideo: tease,
     heroPoster: teaseOwnPoster ?? teams,
+    mvpPoster: firstExisting([`${dir}/jornada${jornadaNumber}-mvp.png`, `${dir}/jornada${jornadaNumber}-mvp.jpg`, `${dir}/jornada${jornadaNumber}-mvp.jpeg`]),
   };
 }

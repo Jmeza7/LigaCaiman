@@ -41,6 +41,7 @@ export default async function TemporadaJornadaPage({ params }: { params: Promise
   const prevNumber = idx > 0 ? jornadas[idx - 1].number : null;
   const nextNumber = idx < jornadas.length - 1 ? jornadas[idx + 1].number : null;
   const basePath = `/temporadas/${season.number}/jornadas`;
+  const media = resolveJornadaMedia(season.number, num);
 
   return (
     <JornadaDetailView
@@ -49,7 +50,8 @@ export default async function TemporadaJornadaPage({ params }: { params: Promise
       prevNumber={prevNumber}
       nextNumber={nextNumber}
       basePath={basePath}
-      poster={resolveJornadaMedia(season.number, num).poster}
+      poster={media.poster}
+      mvpPoster={media.mvpPoster}
       jornadaStats={stats.jornadaStats(num)}
       top5={stats.top5After(num)}
       archivedLabel={`Archivo · ${season.name}`}

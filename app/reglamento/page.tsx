@@ -89,8 +89,9 @@ export default function ReglamentoPage() {
           <div className="rsub">4.2 · Llegadas tarde</div>
           <p className="rp">Si un jugador convocado llega después del inicio del partido:</p>
           <ul className="rlist"><li>Su equipo juega con <b>7 jugadores</b> hasta que aparezca</li></ul>
-          <div className="callout warn"><span className="ci">⚠️</span><div><div className="ct">Castigo: suspensión de un partido</div><div className="cd">El jugador que llegue tarde queda <b>suspendido por un partido</b> (no podrá jugar la siguiente caimana).</div></div></div>
-          <p className="rp" style={{ color: "var(--mut)" }}>Esta regla protege al equipo afectado y desincentiva las llegadas tarde recurrentes.</p>
+          <div className="callout warn"><span className="ci">⚠️</span><div><div className="ct">Castigo: cola de baja prioridad</div><div className="cd">Si la llegada tarde hace que su equipo juegue con uno menos, el jugador entra en la <b>cola de baja prioridad</b> para la siguiente convocatoria: tendrá que esperar <b>24 horas</b> antes de poder apuntarse a la próxima caimana.</div></div></div>
+          <div className="callout warn"><span className="ci">💸</span><div><div className="ct">Bajas de última hora</div><div className="cd">Quien se dé de baja de la convocatoria con poco margen de tiempo, o no consiga quién lo sustituya, <b>paga su parte de la cancha</b> igualmente.</div></div></div>
+          <p className="rp" style={{ color: "var(--mut)" }}>Estas reglas protegen al equipo afectado y desincentivan las llegadas tarde y las bajas de última hora.</p>
         </section>
 
         {/* 05 */}

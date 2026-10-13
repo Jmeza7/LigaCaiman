@@ -60,6 +60,7 @@ export default async function TemporadaTablasPage({ params }: { params: Promise<
           jornadaCount={jornadas.length}
           subtitle={`Archivo · ${season.name}`}
           pendingNotice={pendingIda ? "Hay datos de alguna jornada todavía pendientes de completar." : null}
+          rankingUpdating={season.config.rankingGlobalUpdating ?? false}
         />
       </Suspense>
     </div>

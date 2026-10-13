@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getPlayer } from "@/lib/stats";
 import type { Jornada, Partido } from "@/lib/types";
-import { getPartidos, jornadaTeamsSummary } from "@/lib/jornada-helpers";
+import { getPartidos, jornadaTeamsSummary, allGoalsIn, allMvpsIn } from "@/lib/jornada-helpers";
 import { GoalTimeline, type TLGoal } from "@/app/components/GoalTimeline";
 import { PlayerAvatar } from "@/app/components/PlayerAvatar";
 
@@ -43,7 +43,7 @@ function buildTlGoals(p: Partido): { tlGoals: TLGoal[]; hasMin: boolean } {
   return { tlGoals, hasMin };
 }
 
-function MatchCard({ p, num }: { p: Partido; num: number }) {
+function MatchCard({ p }: { p: Partido }) {
   const ca = teamColor(p.homeTeam.colors);
   const cb = teamColor(p.awayTeam.colors);
   const leg = legLabel(p.leg);
@@ -85,33 +85,6 @@ function MatchCard({ p, num }: { p: Partido; num: number }) {
           <GoalTimeline goals={tlGoals} hasMin={hasMin} homeName={p.homeTeam.name} awayName={p.awayTeam.name} />
         </div>
       )}
-
-      {p.mvps.length > 0 ? (
-        <div className="mvp-wrap" style={{ marginTop: 14 }}>
-          {p.mvps.map((m, i) =>
-            m.type === "honorary" ? (
-              <div key={i} className="mvp honor">
-                <div className="info">
-                  <span className="badge-oro">🐊 Caimán de Oro Honorífico</span>
-                  <div className="mname">{dn(m.playerId)}</div>
-                  <div className="mrole">{m.notes ?? ""}</div>
-                </div>
-              </div>
-            ) : (
-              <Link key={i} href={`/jugador/${m.playerId}`} className="mvp">
-                <div className="photo"><PlayerAvatar id={m.playerId} fill /><div className="pveil" /></div>
-                <div className="info">
-                  <span className="badge-oro">🐊 Caimán de Oro · J{num}{leg ? ` · ${leg}` : ""}</span>
-                  <div className="mname">{dn(m.playerId)}</div>
-                  <div className="mrole">MVP por votación del grupo</div>
-                </div>
-              </Link>
-            )
-          )}
-        </div>
-      ) : (
-        <div className="table-note" style={{ marginTop: 14 }}>MVP pendiente</div>
-      )}
     </div>
   );
 }
@@ -125,6 +98,8 @@ export type JornadaDetailViewProps = {
   basePath: string;
   /** Resuelto por el caller vía lib/season-media.ts (fs es server-only). */
   poster: string | null;
+  /** Póster del Caimán de Oro de la jornada, si existe (lib/season-media.ts). */
+  mvpPoster: string | null;
   jornadaStats: { total: number; avg: number; pct: number };
   top5: { id: string; name: string; pts: number; delta: number | "new" }[];
   /** p.ej. "Archivo · Temporada 1" — si se pasa, se muestra junto al título. */
@@ -140,6 +115,7 @@ export function JornadaDetailView({
   nextNumber,
   basePath,
   poster,
+  mvpPoster,
   jornadaStats: stats,
   top5,
   archivedLabel,
@@ -165,6 +141,62 @@ export function JornadaDetailView({
   const singleTl = single ? buildTlGoals(single) : null;
 
   const { teams: globalTeams } = jornadaTeamsSummary(j);
+
+  const jornadaMvps = allMvpsIn(j);
+  const jornadaGoals = allGoalsIn(j);
+  const mvpBlock = (
+    <div className="jblock">
+      <div className="jblock-h"><span className="ic">🐊</span><span className="t">Caimán de Oro de la jornada</span></div>
+      {jornadaMvps.length === 0 ? (
+        <div className="table-note">MVP pendiente</div>
+      ) : mvpPoster ? (
+        <div className="mvp-poster-wrap">
+          {jornadaMvps.filter((m) => m.type === "normal").map((m, i) => (
+            <Link key={i} href={`/jugador/${m.playerId}`} className="mvp-poster-link">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={mvpPoster} alt={`Caimán de Oro de la jornada · ${dn(m.playerId)}`} />
+            </Link>
+          ))}
+          {jornadaMvps.filter((m) => m.type === "honorary").map((m, i) => (
+            <div key={i} className="mvp honor" style={{ marginTop: 14 }}>
+              <div className="info">
+                <span className="badge-oro">🐊 Caimán de Oro Honorífico</span>
+                <div className="mname">{dn(m.playerId)}</div>
+                <div className="mrole">{m.notes ?? ""}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="mvp-wrap">
+          {jornadaMvps.map((m, i) =>
+            m.type === "honorary" ? (
+              <div key={i} className="mvp honor">
+                <div className="info">
+                  <span className="badge-oro">🐊 Caimán de Oro Honorífico</span>
+                  <div className="mname">{dn(m.playerId)}</div>
+                  <div className="mrole">{m.notes ?? ""}</div>
+                </div>
+              </div>
+            ) : (
+              <Link key={i} href={`/jugador/${m.playerId}`} className="mvp">
+                <div className="photo"><PlayerAvatar id={m.playerId} fill /><div className="pveil" /></div>
+                <div className="info">
+                  <span className="badge-oro">🐊 Caimán de Oro · {jShort(num)}</span>
+                  <div className="mname">{dn(m.playerId)}</div>
+                  <div className="mrole">MVP por votación del grupo</div>
+                  <div className="mstats">
+                    <div className="s"><div className="n g">{jornadaGoals.filter((x) => x.countsForStats && x.scorer === m.playerId).length}</div><div className="l">Goles</div></div>
+                    <div className="s"><div className="n a">{jornadaGoals.filter((x) => x.countsForStats && x.assist === m.playerId).length}</div><div className="l">Asist.</div></div>
+                  </div>
+                </div>
+              </Link>
+            )
+          )}
+        </div>
+      )}
+    </div>
+  );
 
   const statsBlock = (
     <div className="jblock">
@@ -278,43 +310,7 @@ export function JornadaDetailView({
 
           {statsBlock}
 
-          {/* MVP */}
-          {single.mvps.length > 0 && (
-            <div className="jblock">
-              <div className="jblock-h"><span className="ic">🐊</span><span className="t">MVP de la jornada</span></div>
-              <div className="mvp-wrap">
-                {single.mvps.map((m, i) => {
-                  if (m.type === "honorary") {
-                    return (
-                      <div key={i} className="mvp honor">
-                        <div className="info">
-                          <span className="badge-oro">🐊 Caimán de Oro Honorífico</span>
-                          <div className="mname">{dn(m.playerId)}</div>
-                          <div className="mrole">{m.notes ?? ""}</div>
-                        </div>
-                      </div>
-                    );
-                  }
-                  const g = single.goals.filter((x) => x.countsForStats && x.scorer === m.playerId).length;
-                  const a = single.goals.filter((x) => x.countsForStats && x.assist === m.playerId).length;
-                  return (
-                    <Link key={i} href={`/jugador/${m.playerId}`} className="mvp">
-                      <div className="photo"><PlayerAvatar id={m.playerId} fill /><div className="pveil" /></div>
-                      <div className="info">
-                        <span className="badge-oro">🐊 Caimán de Oro · {jShort(num)}</span>
-                        <div className="mname">{dn(m.playerId)}</div>
-                        <div className="mrole">MVP por votación del grupo</div>
-                        <div className="mstats">
-                          <div className="s"><div className="n g">{g}</div><div className="l">Goles</div></div>
-                          <div className="s"><div className="n a">{a}</div><div className="l">Asist.</div></div>
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+          {mvpBlock}
         </>
       ) : (
         <>
@@ -323,7 +319,7 @@ export function JornadaDetailView({
             <div className="sub">{j.narrative ?? jTitle(num)} · {dateStr}</div>
           </header>
           {partidos.map((p, i) => (
-            <MatchCard key={i} p={p} num={num} />
+            <MatchCard key={i} p={p} />
           ))}
 
           {/* resultado global */}
@@ -351,6 +347,8 @@ export function JornadaDetailView({
           </div>
 
           {statsBlock}
+
+          {mvpBlock}
         </>
       )}
 

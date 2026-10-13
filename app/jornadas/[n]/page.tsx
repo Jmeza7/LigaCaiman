@@ -35,6 +35,7 @@ export default async function JornadaPage({ params }: { params: Promise<{ n: str
   const idx = jornadas.findIndex((x) => x.number === num);
   const prevNumber = idx > 0 ? jornadas[idx - 1].number : null;
   const nextNumber = idx < jornadas.length - 1 ? jornadas[idx + 1].number : null;
+  const media = resolveJornadaMedia(season.number, num);
 
   return (
     <JornadaDetailView
@@ -43,7 +44,8 @@ export default async function JornadaPage({ params }: { params: Promise<{ n: str
       prevNumber={prevNumber}
       nextNumber={nextNumber}
       basePath="/jornadas"
-      poster={resolveJornadaMedia(season.number, num).poster}
+      poster={media.poster}
+      mvpPoster={media.mvpPoster}
       jornadaStats={stats.jornadaStats(num)}
       top5={stats.top5After(num)}
       jornadaPrefix={season.number !== 1 ? `T${season.number}` : undefined}

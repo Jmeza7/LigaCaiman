@@ -36,8 +36,18 @@ export function allGoalsIn(j: Jornada): Goal[] {
   return getPartidos(j).flatMap((p) => p.goals);
 }
 
-/** Todos los MVPs de la jornada, de todos sus partidos. */
+/**
+ * Todos los MVPs de la jornada. En una jornada de un solo partido (T1,
+ * siempre hoy) es simplemente el MVP de ese partido. En una jornada de
+ * varios partidos (p.ej. ida y vuelta), el Caimán de Oro se vota para la
+ * jornada completa, no por partido — por eso `j.mvps` (nivel jornada) se usa
+ * como el premio principal, y se complementa con cualquier mvps declarado a
+ * nivel de partido (por si una temporada futura sí los reparte por partido).
+ */
 export function allMvpsIn(j: Jornada): MVP[] {
+  if (j.partidos) {
+    return [...(j.mvps ?? []), ...j.partidos.flatMap((p) => p.mvps)];
+  }
   return getPartidos(j).flatMap((p) => p.mvps);
 }
 

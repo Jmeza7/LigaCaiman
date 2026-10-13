@@ -2,7 +2,7 @@ import { getPlayer, createSeasonStats } from "@/lib/stats";
 import { getSeason, type Season } from "@/lib/seasons";
 import { getSeasonBundle } from "@/lib/season-data";
 import { rankWithTies } from "@/lib/awards";
-import { getPartidos, jornadaTotalGoals } from "@/lib/jornada-helpers";
+import { getPartidos, jornadaTotalGoals, allMvpsIn } from "@/lib/jornada-helpers";
 import recordsData from "@/data/records.json";
 
 export type AwardWinner = { id: string; name: string };
@@ -64,11 +64,9 @@ function toAward(
 function caimanOroCounts(jornadas: ReturnType<typeof getSeasonBundle>["jornadas"]) {
   const counts: Record<string, number> = {};
   for (const j of jornadas) {
-    for (const p of getPartidos(j)) {
-      for (const m of p.mvps) {
-        if (m.type !== "normal") continue;
-        counts[m.playerId] = (counts[m.playerId] ?? 0) + 1;
-      }
+    for (const m of allMvpsIn(j)) {
+      if (m.type !== "normal") continue;
+      counts[m.playerId] = (counts[m.playerId] ?? 0) + 1;
     }
   }
   return Object.entries(counts).map(([id, count]) => ({ id, count }));

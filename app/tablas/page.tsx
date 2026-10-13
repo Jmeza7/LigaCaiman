@@ -45,6 +45,7 @@ export default function TablasPage() {
           jornadaCount={jornadas.length}
           subtitle={jornadas.length > 0 ? `tras J${jornadas[jornadas.length - 1].number}` : season.name}
           pendingNotice={pendingIda ? "Hay datos de alguna jornada todavía pendientes de completar (ida, MVP o minutos) — estas tablas se actualizarán cuando se añadan." : null}
+          rankingUpdating={season.config.rankingGlobalUpdating ?? false}
         />
       </Suspense>
     </div>

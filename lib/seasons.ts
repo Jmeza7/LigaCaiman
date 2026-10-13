@@ -5,6 +5,8 @@ export type SeasonConfig = {
   pointsPerWin: number;
   /** Puntos por jornada empatada con reparto especial (p.ej. ida/vuelta 13-13). Default 0 si no se define. */
   pointsPerTie?: number;
+  /** Si es true, la pestaña "Ranking Global" de /tablas muestra un aviso de "en revisión" en vez de la tabla. */
+  rankingGlobalUpdating?: boolean;
 };
 
 export type Season = {

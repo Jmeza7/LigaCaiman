@@ -70,6 +70,7 @@
       "pointsEach": 2,
       "note": "Global 13-13 (9-4 en la ida, 4-9 en la vuelta). Por decisión de liga, cada jugador que participó en la ida o la vuelta recibe 2 puntos — no hay ganador ni perdedor en esta jornada."
     },
+    "mvps": [{ "playerId": "gato", "type": "normal" }],
     "episode": { "youtubeId": null, "title": "T2 · J1 — Holandés Errante vs Perla Negra", "description": "", "thumbnail": "" }
   }
 ]

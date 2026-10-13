@@ -77,6 +77,8 @@ export type TablasViewProps = {
   subtitle: string;
   /** Si no es null, se muestra un aviso discreto encima de las pestañas (p.ej. datos de una ida pendientes). */
   pendingNotice?: string | null;
+  /** Si es true, la pestaña Ranking Global muestra un aviso de "en revisión" en vez de la tabla. */
+  rankingUpdating?: boolean;
 };
 
 export function TablasView({
@@ -92,6 +94,7 @@ export function TablasView({
   jornadaCount,
   subtitle,
   pendingNotice,
+  rankingUpdating,
 }: TablasViewProps) {
   const sp = useSearchParams();
   const initial = TABS.some((t) => t.key === sp.get("tab")) ? (sp.get("tab") as TabKey) : "ganadores";
@@ -267,12 +270,21 @@ export function TablasView({
 
       {/* RANKING GLOBAL */}
       {tab === "global" && (
-        <StatRows
-          rows={globalRanking.map((r) => ({ id: r.playerId, v: r.score, votes: r.votes, total: r.totalCaptains }))}
-          color="var(--violet)"
-          fmt={(r) => <>{r.v.toFixed(1)}<small>{r.votes}/{r.total} votos</small></>}
-          note={<div className="table-note">Ranking normalizado 0–100 · promedio de los votos de cada capitán · auto-votos excluidos</div>}
-        />
+        rankingUpdating ? (
+          <div className="ranking-updating">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/working.png" alt="Estamos actualizando el ranking" />
+            <div className="t">Estamos actualizando el ranking</div>
+            <div className="d">Los capitanes están revisando sus votos — vuelve pronto para ver la tabla.</div>
+          </div>
+        ) : (
+          <StatRows
+            rows={globalRanking.map((r) => ({ id: r.playerId, v: r.score, votes: r.votes, total: r.totalCaptains }))}
+            color="var(--violet)"
+            fmt={(r) => <>{r.v.toFixed(1)}<small>{r.votes}/{r.total} votos</small></>}
+            note={<div className="table-note">Ranking normalizado 0–100 · promedio de los votos de cada capitán · auto-votos excluidos</div>}
+          />
+        )
       )}
     </>
   );

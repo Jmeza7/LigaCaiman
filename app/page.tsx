@@ -148,26 +148,31 @@ function HomeWithData({
   // orden por importancia: Líder · Pichichi · Asistencias · Porteros · Ranking
   const leaders = [
     {
-      role: invictoRows.length ? "Líder Invicto" : "Líder", ic: invictoRows.length ? "🛡️" : "👑", tab: "ganadores",
+      role: "Clasificatoria", ic: invictoRows.length ? "🛡️" : "👑", tab: "ganadores",
       accent: "var(--lime)", value: pointsTiers[0]?.value ?? 0, dec: 0, unit: "pts", ids: leaderIds, spark: stats.cumulativePoints(leaderIds[0] ?? ""),
       extra: leaderIds.length > 1 ? `${leaderIds.length} empatados a ${pointsTiers[0]?.value ?? 0} pts` : "líder de la general",
+      maxNames: 3,
     },
     {
       role: "Pichichi", ic: "⚽", tab: "goleadores", accent: "var(--magenta)", value: goalsTiers[0]?.value ?? 0, dec: 0, unit: "goles",
       ids: pichichiIds, spark: stats.cumulativeGoals(pichichiIds[0] ?? ""), extra: `${goalsTiers[0]?.value ?? 0} goles · máximo goleador`,
+      maxNames: undefined as number | undefined,
     },
     {
       role: "Asistencias", ic: "🎯", tab: "asistencias", accent: "var(--cyan)", value: assistsTiers[0]?.value ?? 0, dec: 0, unit: "asist.",
       ids: asisIds, spark: stats.cumulativeAssists(asisIds[0] ?? ""), extra: `${assistsTiers[0]?.value ?? 0} asistencias · nº1`,
+      maxNames: undefined as number | undefined,
     },
     {
       role: "Porteros", ic: "🧤", tab: "porteros", accent: "var(--gold)", value: bestAdj, dec: 2, unit: "aj.",
       ids: porterIds, spark: stats.cumulativePoints(porterIds[0] ?? ""),
       extra: keepers[0] ? `media ${keepers[0].avg.toFixed(2)} · ${keepers[0].pj.toFixed(2)} PJ · el más sólido` : "",
+      maxNames: undefined as number | undefined,
     },
     {
       role: "Ranking Global", ic: "📊", tab: "global", accent: "var(--violet)", value: rankingTiers[0]?.value ?? 0, dec: 1, unit: "pts",
       ids: rankIds, spark: stats.cumulativePoints(rankIds[0] ?? ""), extra: rankIds.length ? `${ranking[0]?.votes}/${ranking[0]?.totalCaptains} capitanes lo votaron nº1` : "",
+      maxNames: undefined as number | undefined,
     },
   ].filter((l) => l.ids.length > 0);
   const noLeaders = leaders.length === 0;
@@ -186,7 +191,9 @@ function HomeWithData({
             {leaders.map((l) => {
               const tie = l.ids.length > 1;
               const href = tie ? `/tablas?tab=${l.tab}` : `/jugador/${l.ids[0]}`;
-              const names = l.ids.map((id) => getPlayer(id)?.displayName ?? id);
+              const allNames = l.ids.map((id) => getPlayer(id)?.displayName ?? id);
+              const names = l.maxNames && allNames.length > l.maxNames ? allNames.slice(0, l.maxNames) : allNames;
+              const hiddenCount = allNames.length - names.length;
               return (
                 <Link key={l.role} href={href} className="lcard" style={{ ["--accent" as string]: l.accent }}>
                   <PlayerAvatar id={l.ids[0]} fill className="ph" />
@@ -199,7 +206,7 @@ function HomeWithData({
                       <span className="u">{l.unit}</span>
                     </div>
                     <div className="nm" style={tie ? { fontSize: names.length > 2 ? 14 : 17, lineHeight: 1.15 } : undefined}>
-                      {tie ? names.join(" · ") : names[0]}
+                      {tie ? names.join(" · ") + (hiddenCount > 0 ? ` +${hiddenCount}` : "") : names[0]}
                     </div>
                     <div className="spark"><Sparkline data={l.spark} color={l.accent.startsWith("var") ? cssVarHex(l.accent) : l.accent} /></div>
                     <div className="more">
