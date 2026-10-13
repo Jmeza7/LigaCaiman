@@ -1,28 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { jornadas, getPlayer, jornadaStats, top5After } from "@/lib/stats";
+import { getPlayer, createSeasonStats } from "@/lib/stats";
+import { getActiveSeason } from "@/lib/seasons";
+import { getSeasonBundle } from "@/lib/season-data";
+import { resolveJornadaMedia } from "@/lib/season-media";
 import { GoalTimeline, type TLGoal } from "@/app/components/GoalTimeline";
 
 export function generateStaticParams() {
+  const season = getActiveSeason();
+  const jornadas = getSeasonBundle(season.dataDir).jornadas;
   return jornadas.map((j) => ({ n: String(j.number) }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ n: string }> }): Promise<Metadata> {
   const { n } = await params;
+  const season = getActiveSeason();
+  const jornadas = getSeasonBundle(season.dataDir).jornadas;
   const j = jornadas.find((x) => x.number === Number(n));
   return { title: j ? `Jornada ${j.number}${j.narrative ? " · " + j.narrative : ""} — Liga Caimán` : "Jornada — Liga Caimán" };
 }
-
-const POSTERS: Record<number, string> = {
-  2: "/jornadas/jornada2.jpeg",
-  3: "/jornadas/jornada3.jpeg",
-  4: "/jornadas/jornada4.jpeg",
-  5: "/jornadas/jornada5.jpeg",
-  6: "/jornadas/jornada6.jpeg",
-  7: "/jornadas/jornada7.png",
-  8: "/jornadas/jornada8.png",
-};
 
 const dn = (id: string) => (id === "ximena" ? "Ximena" : getPlayer(id)?.displayName ?? id);
 const teamColor = (c: { primary: string }) => {
@@ -42,6 +39,12 @@ const parseMin = (m?: string | null) => {
 export default async function JornadaPage({ params }: { params: Promise<{ n: string }> }) {
   const { n } = await params;
   const num = Number(n);
+
+  const season = getActiveSeason();
+  const bundle = getSeasonBundle(season.dataDir);
+  const stats = createSeasonStats(bundle, season.config);
+  const { jornadas } = bundle;
+
   const j = jornadas.find((x) => x.number === num);
   if (!j) notFound();
 
@@ -55,7 +58,7 @@ export default async function JornadaPage({ params }: { params: Promise<{ n: str
     .toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" })
     .toUpperCase();
 
-  const { total, avg, pct } = jornadaStats(num);
+  const { total, avg, pct } = stats.jornadaStats(num);
   const up = pct >= 0;
   const maxBar = Math.max(total, avg);
 
@@ -79,8 +82,8 @@ export default async function JornadaPage({ params }: { params: Promise<{ n: str
     }
   }
 
-  const poster = POSTERS[num];
-  const top5 = top5After(num);
+  const poster = resolveJornadaMedia(season.number, num).poster;
+  const top5 = stats.top5After(num);
 
   return (
     <div className="lc-container" style={{ paddingBottom: 44 }}>

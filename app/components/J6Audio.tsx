@@ -1,7 +1,21 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-export function J6Audio({ src }: { src: string }) {
+export function J6Audio({
+  src,
+  storageKey = "lc_j6_audio",
+  ariaLabel = "Música de la Jornada 6",
+  playingLabel = "Sonando · J6",
+  nudgeTitle = "Pon el ambiente",
+  nudgeText = "Toca para escuchar el tráiler de la J6",
+}: {
+  src: string;
+  storageKey?: string;
+  ariaLabel?: string;
+  playingLabel?: string;
+  nudgeTitle?: string;
+  nudgeText?: string;
+}) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [nudge, setNudge] = useState(false);
@@ -10,7 +24,7 @@ export function J6Audio({ src }: { src: string }) {
     const audio = audioRef.current;
     if (!audio) return;
     audio.volume = 0.55;
-    const wantOff = localStorage.getItem("lc_j6_audio") === "off";
+    const wantOff = localStorage.getItem(storageKey) === "off";
     if (wantOff) return;
 
     const play = () =>
@@ -25,7 +39,7 @@ export function J6Audio({ src }: { src: string }) {
     play().catch(() => {
       setNudge(true);
       const once = () => {
-        if (localStorage.getItem("lc_j6_audio") === "off") return cleanup();
+        if (localStorage.getItem(storageKey) === "off") return cleanup();
         play().then(cleanup).catch(() => {});
       };
       const cleanup = () => {
@@ -35,16 +49,16 @@ export function J6Audio({ src }: { src: string }) {
       window.addEventListener("pointerdown", once);
       window.addEventListener("keydown", once);
     });
-  }, []);
+  }, [storageKey]);
 
   const toggle = () => {
     const audio = audioRef.current;
     if (!audio) return;
     if (audio.paused) {
-      localStorage.setItem("lc_j6_audio", "on");
+      localStorage.setItem(storageKey, "on");
       audio.play().then(() => { setPlaying(true); setNudge(false); }).catch(() => {});
     } else {
-      localStorage.setItem("lc_j6_audio", "off");
+      localStorage.setItem(storageKey, "off");
       audio.pause();
       setPlaying(false);
     }
@@ -52,14 +66,14 @@ export function J6Audio({ src }: { src: string }) {
 
   return (
     <>
-      <button className={`audio-toggle${playing ? " playing" : ""}`} onClick={toggle} aria-label="Música de la Jornada 6">
+      <button className={`audio-toggle${playing ? " playing" : ""}`} onClick={toggle} aria-label={ariaLabel}>
         <span className="eq"><i /><i /><i /><i /></span>
-        <span>{playing ? "Sonando · J6" : "Activar música"}</span>
+        <span>{playing ? playingLabel : "Activar música"}</span>
       </button>
       <audio ref={audioRef} src={src} loop preload="auto" />
       {nudge && (
         <button
-          onClick={() => { localStorage.setItem("lc_j6_audio", "on"); audioRef.current?.play().then(() => { setPlaying(true); setNudge(false); }).catch(() => {}); }}
+          onClick={() => { localStorage.setItem(storageKey, "on"); audioRef.current?.play().then(() => { setPlaying(true); setNudge(false); }).catch(() => {}); }}
           style={{
             position: "fixed", right: 20, bottom: 20, zIndex: 60, display: "flex", alignItems: "center", gap: 12,
             padding: "13px 17px", borderRadius: 14, cursor: "pointer", background: "rgba(14,17,22,.92)",
@@ -69,8 +83,8 @@ export function J6Audio({ src }: { src: string }) {
         >
           <span style={{ fontSize: 20 }}>🔊</span>
           <span style={{ fontFamily: "var(--f-body)", fontSize: 12.5, lineHeight: 1.35, color: "var(--ink-2)" }}>
-            <b style={{ color: "var(--cyan)", display: "block", fontSize: 13 }}>Pon el ambiente</b>
-            Toca para escuchar el tráiler de la J6
+            <b style={{ color: "var(--cyan)", display: "block", fontSize: 13 }}>{nudgeTitle}</b>
+            {nudgeText}
           </span>
         </button>
       )}

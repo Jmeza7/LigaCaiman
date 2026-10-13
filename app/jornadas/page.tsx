@@ -1,7 +1,10 @@
 import { redirect } from "next/navigation";
-import { jornadas } from "@/lib/stats";
+import { getActiveSeason } from "@/lib/seasons";
+import { getSeasonBundle } from "@/lib/season-data";
 
 export default function JornadasIndex() {
-  const last = jornadas[jornadas.length - 1].number;
-  redirect(`/jornadas/${last}`);
+  const season = getActiveSeason();
+  const jornadas = getSeasonBundle(season.dataDir).jornadas;
+  if (jornadas.length === 0) redirect("/");
+  redirect(`/jornadas/${jornadas[jornadas.length - 1].number}`);
 }

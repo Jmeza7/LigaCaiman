@@ -2,24 +2,11 @@
 import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { computeGoalscorers, computeAssists, getPlayer, jornadas, keeperAdjusted } from "@/lib/stats";
-import rankingsData from "@/data/rankings.json";
+import { getPlayer, keeperAdjusted, createSeasonStats } from "@/lib/stats";
+import { getActiveSeason } from "@/lib/seasons";
+import { getSeasonBundle } from "@/lib/season-data";
 
-const standings = rankingsData.standings;
-const globalRanking = rankingsData.globalRanking;
 type KeeperRow = { playerId: string; pj: number; conceded: number; avg: number; adj: number; note?: string };
-const allKeepers: KeeperRow[] = (rankingsData.keepers as { playerId: string; pj: number; conceded: number; note?: string }[])
-  .map((k) => ({ ...k, avg: k.conceded / k.pj, adj: keeperAdjusted(k.conceded, k.pj) }))
-  .sort((a, b) => a.adj - b.adj || (getPlayer(a.playerId)?.displayName ?? "").localeCompare(getPlayer(b.playerId)?.displayName ?? ""));
-const keepersClasificados = allKeepers.filter((k) => k.pj >= 2);
-const keepersSinClasificar = allKeepers.filter((k) => k.pj < 2);
-
-const oroByJornada = jornadas.map((j) => ({
-  n: j.number,
-  narr: j.narrative,
-  winners: j.mvps.filter((m) => m.type === "normal").map((m) => m.playerId),
-  honor: j.mvps.filter((m) => m.type === "honorary"),
-}));
 
 const TABS = [
   { key: "ganadores", ic: "🏆", label: "Ganadores" },
@@ -48,6 +35,9 @@ function StatRows({
   note: React.ReactNode;
   fmt: (r: StatRow) => React.ReactNode;
 }) {
+  if (rows.length === 0) {
+    return <div className="table-note">Todavía no hay datos para esta tabla.</div>;
+  }
   const max = Math.max(...rows.map((r) => r.v));
   return (
     <>
@@ -78,15 +68,36 @@ function TablasContent() {
   const initial = TABS.some((t) => t.key === sp.get("tab")) ? (sp.get("tab") as TabKey) : "ganadores";
   const [tab, setTab] = useState<TabKey>(initial);
 
-  const goleadores = computeGoalscorers().map((g) => ({ id: g.id, v: g.goals, sub: getPlayer(g.id)?.status === "emergency_sub" }));
-  const asistencias = computeAssists().map((a) => ({ id: a.id, v: a.assists, sub: getPlayer(a.id)?.status === "emergency_sub" }));
-  const keeperMax = Math.max(...allKeepers.map((k) => k.adj));
+  const season = getActiveSeason();
+  const stats = createSeasonStats(getSeasonBundle(season.dataDir), season.config);
+  const { jornadas, rankingsData } = stats;
+
+  const standings = rankingsData.standings;
+  const globalRanking = rankingsData.globalRanking;
+  const allKeepers: KeeperRow[] = rankingsData.keepers
+    .map((k) => ({ ...k, avg: k.conceded / k.pj, adj: keeperAdjusted(k.conceded, k.pj) }))
+    .sort((a, b) => a.adj - b.adj || (getPlayer(a.playerId)?.displayName ?? "").localeCompare(getPlayer(b.playerId)?.displayName ?? ""));
+  const keepersClasificados = allKeepers.filter((k) => k.pj >= stats.keeperMinPJ);
+  const keepersSinClasificar = allKeepers.filter((k) => k.pj < stats.keeperMinPJ);
+
+  const oroByJornada = jornadas.map((j) => ({
+    n: j.number,
+    narr: j.narrative,
+    winners: j.mvps.filter((m) => m.type === "normal").map((m) => m.playerId),
+    honor: j.mvps.filter((m) => m.type === "honorary"),
+  }));
+
+  const goleadores = stats.computeGoalscorers().map((g) => ({ id: g.id, v: g.goals, sub: getPlayer(g.id)?.status === "emergency_sub" }));
+  const asistencias = stats.computeAssists().map((a) => ({ id: a.id, v: a.assists, sub: getPlayer(a.id)?.status === "emergency_sub" }));
+  const keeperMax = allKeepers.length ? Math.max(...allKeepers.map((k) => k.adj)) : 0;
 
   return (
     <>
       <header className="phero">
         <h1 className="big brand-grad gradient-text">Tablas oficiales</h1>
-        <div className="sub">Las 6 clasificaciones · tras J9</div>
+        <div className="sub">
+          Las 6 clasificaciones · {jornadas.length > 0 ? `tras J${jornadas[jornadas.length - 1].number}` : season.name}
+        </div>
       </header>
 
       <div className="tabs">
@@ -101,29 +112,37 @@ function TablasContent() {
       {/* GANADORES */}
       {tab === "ganadores" && (
         <>
-          <div className="standings">
-            {standings.map((p, i) => {
-              const rk = i + 1;
-              const form = p.record.map((r) => (r === "W" ? "W" : r === "L" ? "L" : "N"));
-              return (
-                <Link key={p.playerId} href={`/jugador/${p.playerId}`} className={`srow ${rk === 1 ? "top1" : topCls(rk)}`}>
-                  <div className="rk">{rk}</div>
-                  <div className="who">
-                    <span className="nm">{dn(p.playerId)}</span>
-                    {p.isUnbeaten && <span className="tag invicto">★ Invicto</span>}
-                    {medal(rk) && <span className="medal">{medal(rk)}</span>}
-                  </div>
-                  <div className="form-mini">
-                    {form.map((c, k) => (
-                      <span key={k} className={c}>{c === "N" ? "·" : c}</span>
-                    ))}
-                  </div>
-                  <div className={`pts${p.points >= 9 ? " lime" : ""}`}>{p.points}</div>
-                </Link>
-              );
-            })}
-          </div>
-          <div className="table-note">24 jugadores · <b>3 pts</b> por victoria · forma de J1 a J5 (· = no jugó) · toca una fila para ver el perfil</div>
+          {standings.length === 0 ? (
+            <div className="table-note">Todavía no hay clasificación para esta temporada.</div>
+          ) : (
+            <>
+              <div className="standings">
+                {standings.map((p, i) => {
+                  const rk = i + 1;
+                  const form = p.record.map((r) => (r === "W" ? "W" : r === "L" ? "L" : "N"));
+                  return (
+                    <Link key={p.playerId} href={`/jugador/${p.playerId}`} className={`srow ${rk === 1 ? "top1" : topCls(rk)}`}>
+                      <div className="rk">{rk}</div>
+                      <div className="who">
+                        <span className="nm">{dn(p.playerId)}</span>
+                        {p.isUnbeaten && <span className="tag invicto">★ Invicto</span>}
+                        {medal(rk) && <span className="medal">{medal(rk)}</span>}
+                      </div>
+                      <div className="form-mini">
+                        {form.map((c, k) => (
+                          <span key={k} className={c}>{c === "N" ? "·" : c}</span>
+                        ))}
+                      </div>
+                      <div className={`pts${p.points >= 9 ? " lime" : ""}`}>{p.points}</div>
+                    </Link>
+                  );
+                })}
+              </div>
+              <div className="table-note">
+                {standings.length} jugadores · <b>{stats.pointsPerWin} pts</b> por victoria · forma de J1 a J{jornadas.length} (· = no jugó) · toca una fila para ver el perfil
+              </div>
+            </>
+          )}
         </>
       )}
 
@@ -150,69 +169,85 @@ function TablasContent() {
       {/* PORTEROS */}
       {tab === "porteros" && (
         <>
-          <div className="standings">
-            {keepersClasificados.map((k, i) => {
-              const rk = i + 1;
-              return (
-                <Link key={k.playerId} href={`/jugador/${k.playerId}`} className={`statrow ${topCls(rk)}`} style={{ ["--mbar" as string]: "var(--lime)" }}>
-                  <div className="rk">{rk}</div>
-                  <div className="who">
-                    <span className="nm">{dn(k.playerId)}</span>
-                    {k.note && <span className="tag sup">{k.note}</span>}
-                    {medal(rk) && <span className="medal">{medal(rk)}</span>}
+          {allKeepers.length === 0 ? (
+            <div className="table-note">Todavía no hay datos de porteros para esta temporada.</div>
+          ) : (
+            <>
+              <div className="standings">
+                {keepersClasificados.map((k, i) => {
+                  const rk = i + 1;
+                  return (
+                    <Link key={k.playerId} href={`/jugador/${k.playerId}`} className={`statrow ${topCls(rk)}`} style={{ ["--mbar" as string]: "var(--lime)" }}>
+                      <div className="rk">{rk}</div>
+                      <div className="who">
+                        <span className="nm">{dn(k.playerId)}</span>
+                        {k.note && <span className="tag sup">{k.note}</span>}
+                        {medal(rk) && <span className="medal">{medal(rk)}</span>}
+                      </div>
+                      <div className="track"><span style={{ width: `${(1 - k.adj / (keeperMax + 1)) * 100}%` }} /></div>
+                      <div className="v">{k.adj.toFixed(2)}<small>aj. · media {k.avg.toFixed(2)} · {k.pj.toFixed(2)} PJ</small></div>
+                    </Link>
+                  );
+                })}
+              </div>
+              {keepersSinClasificar.length > 0 && (
+                <>
+                  <div className="table-note" style={{ textAlign: "left", marginTop: 24, marginBottom: 10, fontFamily: "var(--f-body)", fontWeight: 800, fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "var(--mut)" }}>
+                    Sin clasificar · menos de {stats.keeperMinPJ.toFixed(2)} PJ
                   </div>
-                  <div className="track"><span style={{ width: `${(1 - k.adj / (keeperMax + 1)) * 100}%` }} /></div>
-                  <div className="v">{k.adj.toFixed(2)}<small>aj. · media {k.avg.toFixed(2)} · {k.pj.toFixed(2)} PJ</small></div>
-                </Link>
-              );
-            })}
-          </div>
-          <div className="table-note" style={{ textAlign: "left", marginTop: 24, marginBottom: 10, fontFamily: "var(--f-body)", fontWeight: 800, fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "var(--mut)" }}>
-            Sin clasificar · menos de 2.00 PJ
-          </div>
-          <div className="standings" style={{ opacity: 0.75 }}>
-            {keepersSinClasificar.map((k) => (
-              <Link key={k.playerId} href={`/jugador/${k.playerId}`} className="statrow" style={{ ["--mbar" as string]: "var(--mut-2)" }}>
-                <div className="rk">—</div>
-                <div className="who">
-                  <span className="nm">{dn(k.playerId)}</span>
-                  {k.adj === Math.min(...keepersSinClasificar.map((x) => x.adj)) && <span className="tag sup" style={{ color: "var(--cyan)", borderColor: "rgba(52,230,255,.4)", background: "rgba(52,230,255,.1)" }}>⚡ mejor media</span>}
-                </div>
-                <div className="track"><span style={{ width: `${(1 - k.adj / (keeperMax + 1)) * 100}%` }} /></div>
-                <div className="v">{k.adj.toFixed(2)}<small>aj. · media {k.avg.toFixed(2)} · {k.pj.toFixed(2)} PJ</small></div>
-              </Link>
-            ))}
-          </div>
-          <div className="table-note">Ordenado por <b>media ajustada</b> = encajados/PJ − 0,30 por cada PJ extra (premia a los que más portean). Menos es mejor · mínimo <b>2.00 PJ</b> para clasificar · no cuentan los goles del suplente.</div>
+                  <div className="standings" style={{ opacity: 0.75 }}>
+                    {keepersSinClasificar.map((k) => (
+                      <Link key={k.playerId} href={`/jugador/${k.playerId}`} className="statrow" style={{ ["--mbar" as string]: "var(--mut-2)" }}>
+                        <div className="rk">—</div>
+                        <div className="who">
+                          <span className="nm">{dn(k.playerId)}</span>
+                          {k.adj === Math.min(...keepersSinClasificar.map((x) => x.adj)) && <span className="tag sup" style={{ color: "var(--cyan)", borderColor: "rgba(52,230,255,.4)", background: "rgba(52,230,255,.1)" }}>⚡ mejor media</span>}
+                        </div>
+                        <div className="track"><span style={{ width: `${(1 - k.adj / (keeperMax + 1)) * 100}%` }} /></div>
+                        <div className="v">{k.adj.toFixed(2)}<small>aj. · media {k.avg.toFixed(2)} · {k.pj.toFixed(2)} PJ</small></div>
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+              <div className="table-note">Ordenado por <b>media ajustada</b> = encajados/PJ − 0,30 por cada PJ extra (premia a los que más portean). Menos es mejor · mínimo <b>{stats.keeperMinPJ.toFixed(2)} PJ</b> para clasificar · no cuentan los goles del suplente.</div>
+            </>
+          )}
         </>
       )}
 
       {/* CAIMÁN DE ORO */}
       {tab === "caiman" && (
         <>
-          <div className="oro-grid">
-            {[...oroByJornada].reverse().map((j) => (
-              <div key={j.n} className="oro-row">
-                <div className="jn">J{j.n}</div>
-                <div>
-                  <div className="meta">{j.narr ?? `Jornada ${j.n}`}</div>
-                  <div className="winners">
-                    {j.winners.map((id, i) => (
-                      <span key={id} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                        {i > 0 && <span className="plus">+</span>}
-                        <Link href={`/jugador/${id}`} style={{ color: "inherit", textDecoration: "none" }}>{dn(id)}</Link>
-                      </span>
-                    ))}
+          {oroByJornada.length === 0 ? (
+            <div className="table-note">Todavía no hay Caimanes de Oro en esta temporada.</div>
+          ) : (
+            <>
+              <div className="oro-grid">
+                {[...oroByJornada].reverse().map((j) => (
+                  <div key={j.n} className="oro-row">
+                    <div className="jn">J{j.n}</div>
+                    <div>
+                      <div className="meta">{j.narr ?? `Jornada ${j.n}`}</div>
+                      <div className="winners">
+                        {j.winners.map((id, i) => (
+                          <span key={id} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                            {i > 0 && <span className="plus">+</span>}
+                            <Link href={`/jugador/${id}`} style={{ color: "inherit", textDecoration: "none" }}>{dn(id)}</Link>
+                          </span>
+                        ))}
+                      </div>
+                      {j.honor.length > 0 && (
+                        <div className="honor">★ {j.honor.map((h) => `${h.playerId === "ximena" ? "Ximena" : dn(h.playerId)}${h.notes ? " · " + h.notes : ""}`).join(" · ")}</div>
+                      )}
+                    </div>
+                    <div className="medal">🐊</div>
                   </div>
-                  {j.honor.length > 0 && (
-                    <div className="honor">★ {j.honor.map((h) => `${h.playerId === "ximena" ? "Ximena" : dn(h.playerId)}${h.notes ? " · " + h.notes : ""}`).join(" · ")}</div>
-                  )}
-                </div>
-                <div className="medal">🐊</div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="table-note">El MVP se vota en abierto al final de cada caimana · <b>Jose Gonzalez</b> es el Caimán de Oro vigente (J9)</div>
+              <div className="table-note">El MVP se vota en abierto al final de cada caimana</div>
+            </>
+          )}
         </>
       )}
 
