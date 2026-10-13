@@ -1,1 +1,75 @@
-[]
+[
+  {
+    "number": 1,
+    "date": null,
+    "narrative": null,
+    "partidos": [
+      {
+        "leg": "ida",
+        "homeTeam": {
+          "name": "Holandés Errante",
+          "captain": "danifrg",
+          "players": ["danifrg", "gato", "daniscule", "ale", "xanderson", "josephine", "marco"],
+          "colors": { "primary": "#3a3a3a", "secondary": "#f4f4f6" }
+        },
+        "awayTeam": {
+          "name": "Perla Negra",
+          "captain": "meza",
+          "players": ["meza", "jose-gonzalez", "josef", "armando", "alfredo", "oscar-2", "carlos", "danthony"],
+          "colors": { "primary": "#1a1a2e", "secondary": "#c9a35c" }
+        },
+        "result": { "home": 9, "away": 4 },
+        "goals": [],
+        "mvps": [],
+        "pending": {
+          "goals": true,
+          "minutes": true,
+          "note": "Datos de la ida pendientes: goleadores, asistencias, porteros y minutos se añadirán más tarde editando este JSON."
+        }
+      },
+      {
+        "leg": "vuelta",
+        "homeTeam": {
+          "name": "Perla Negra",
+          "captain": "meza",
+          "players": ["jose-gonzalez", "josef", "armando", "alfredo", "oscar-2", "carlos", "danthony"],
+          "colors": { "primary": "#1a1a2e", "secondary": "#c9a35c" }
+        },
+        "awayTeam": {
+          "name": "Holandés Errante",
+          "captain": "danifrg",
+          "players": ["danifrg", "meza", "gato", "daniscule", "ale", "xanderson", "josephine", "marco"],
+          "colors": { "primary": "#3a3a3a", "secondary": "#f4f4f6" }
+        },
+        "result": { "home": 9, "away": 4 },
+        "goals": [
+          { "scorer": "josef", "assist": null, "scoredAgainst": "daniscule", "team": "home", "countsForStats": true, "countsForKeeper": true },
+          { "scorer": "josef", "assist": null, "scoredAgainst": "daniscule", "team": "home", "countsForStats": true, "countsForKeeper": true },
+          { "scorer": "armando", "assist": null, "scoredAgainst": "daniscule", "team": "home", "countsForStats": true, "countsForKeeper": true },
+          { "scorer": "oscar-2", "assist": null, "scoredAgainst": "daniscule", "team": "home", "countsForStats": true, "countsForKeeper": true },
+          { "scorer": "jose-gonzalez", "assist": null, "scoredAgainst": "daniscule", "team": "home", "countsForStats": true, "countsForKeeper": true },
+          { "scorer": "danthony", "assist": null, "scoredAgainst": "daniscule", "team": "home", "countsForStats": true, "countsForKeeper": true },
+          { "scorer": "danthony", "assist": null, "scoredAgainst": "daniscule", "team": "home", "countsForStats": true, "countsForKeeper": true },
+          { "scorer": "alfredo", "assist": null, "scoredAgainst": "daniscule", "team": "home", "countsForStats": true, "countsForKeeper": true },
+          { "scorer": "gato", "assist": null, "scoredAgainst": "daniscule", "team": "home", "countsForStats": false, "countsForKeeper": true, "note": "Gol en propia puerta — no cuenta como gol anotado por Gato" },
+          { "scorer": "meza", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true, "note": "Portero de Perla Negra en el momento de este gol sin especificar" },
+          { "scorer": "gato", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true, "note": "Portero de Perla Negra en el momento de este gol sin especificar" },
+          { "scorer": "danifrg", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true, "note": "Portero de Perla Negra en el momento de este gol sin especificar" },
+          { "scorer": "ale", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true, "note": "Portero de Perla Negra en el momento de este gol sin especificar" }
+        ],
+        "mvps": [],
+        "pending": {
+          "goals": false,
+          "minutes": true,
+          "note": "Goles y porteros confirmados. Minutos de cada gol y a qué gol corresponde cada asistencia pendientes — los totales de asistencias (Meza 2, Josef 1, Armando 2) ya están en rankings.json."
+        }
+      }
+    ],
+    "tieResolution": {
+      "status": "tied_points_split",
+      "pointsEach": 2,
+      "note": "Global 13-13 (9-4 en la ida, 4-9 en la vuelta). Por decisión de liga, cada jugador que participó en la ida o la vuelta recibe 2 puntos — no hay ganador ni perdedor en esta jornada."
+    },
+    "episode": { "youtubeId": null, "title": "T2 · J1 — Holandés Errante vs Perla Negra", "description": "", "thumbnail": "" }
+  }
+]
