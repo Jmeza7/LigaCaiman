@@ -16,8 +16,9 @@ function Sparkline({ data, color }: { data: number[]; color: string }) {
   const min = Math.min(...data);
   const max = Math.max(...data);
   const rng = max - min || 1;
+  const span = data.length - 1 || 1;
   const pts = data.map((d, i) => {
-    const x = (i / (data.length - 1)) * W;
+    const x = (i / span) * W;
     const y = H - ((d - min) / rng) * (H - 6) - 3;
     return [x, y] as const;
   });
