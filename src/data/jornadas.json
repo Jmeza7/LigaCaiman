@@ -1,0 +1,358 @@
+[
+  {
+    "number": 1,
+    "date": "2026-04-13",
+    "narrative": null,
+    "homeTeam": {
+      "name": "Team Juandiego",
+      "captain": "juandiego",
+      "players": ["juandiego", "danifrg", "josef", "diovanny", "emidio", "angel", "marco", "redone"],
+      "colors": { "primary": "#ffffff", "secondary": "#000000" }
+    },
+    "awayTeam": {
+      "name": "Team Dantuan",
+      "captain": "danthony",
+      "players": ["danthony", "meza", "gato", "renato", "andres-gil", "xanderson", "daniscule", "gianni"],
+      "colors": { "primary": "#000000", "secondary": "#ffffff" }
+    },
+    "result": { "home": 12, "away": 10 },
+    "goals": [
+      { "scorer": "danifrg", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "danifrg", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "danifrg", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "danifrg", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "danifrg", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "josef", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "josef", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "josef", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "josef", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "josef", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "redone", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "redone", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "meza", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "meza", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "meza", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "meza", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "gato", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "gato", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "gato", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "gato", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "andres-gil", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "renato", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true }
+    ],
+    "mvps": [
+      { "playerId": "gato", "type": "normal" }
+    ],
+    "episode": { "youtubeId": null, "title": "Jornada 1", "description": "", "thumbnail": "" }
+  },
+  {
+    "number": 2,
+    "date": "2026-04-27",
+    "narrative": null,
+    "homeTeam": {
+      "name": "Masticadores",
+      "captain": "xanderson",
+      "players": ["xanderson", "josef", "meza", "danifrg", "daniscule", "josephine", "angel", "lucho"],
+      "colors": { "primary": "#ffffff", "secondary": "#000000" }
+    },
+    "awayTeam": {
+      "name": "Gilzone",
+      "captain": "andres-gil",
+      "players": ["andres-gil", "winston", "gato", "renato", "marco", "gianni", "emidio", "abdon"],
+      "colors": { "primary": "#000000", "secondary": "#ffffff" }
+    },
+    "result": { "home": 9, "away": 5 },
+    "goals": [
+      { "scorer": "xanderson", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "xanderson", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "xanderson", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "danifrg", "assist": "meza", "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "danifrg", "assist": "meza", "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "josef", "assist": "danifrg", "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "josef", "assist": "danifrg", "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "meza", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "meza", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "renato", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "renato", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "gato", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "gato", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "andres-gil", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true }
+    ],
+    "mvps": [
+      { "playerId": "marco", "type": "normal" },
+      { "playerId": "daniscule", "type": "normal" }
+    ],
+    "episode": { "youtubeId": null, "title": "Jornada 2", "description": "", "thumbnail": "" }
+  },
+  {
+    "number": 3,
+    "date": "2026-05-01",
+    "narrative": "El Clásico del Buen Gusto",
+    "homeTeam": {
+      "name": "Ronventus",
+      "captain": "marco",
+      "players": ["marco", "josef", "juandiego", "meza", "xanderson", "abdon", "angel", "oscar"],
+      "colors": { "primary": "#ffffff", "secondary": "#000000" }
+    },
+    "awayTeam": {
+      "name": "Vodkatinto",
+      "captain": "daniscule",
+      "players": ["daniscule", "gato", "danifrg", "winston", "andres-gil", "lucho", "emidio", "gianni"],
+      "colors": { "primary": "#8B0000", "secondary": "#ffffff" }
+    },
+    "result": { "home": 9, "away": 6 },
+    "goals": [
+      { "scorer": "josef", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "josef", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "josef", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "meza", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "meza", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "meza", "assist": null, "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "xanderson", "assist": "xanderson", "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "abdon", "assist": "abdon", "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "juandiego", "assist": "juandiego", "scoredAgainst": null, "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "winston", "assist": "winston", "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "winston", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "danifrg", "assist": "danifrg", "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "danifrg", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "gato", "assist": "gato", "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "gato", "assist": null, "scoredAgainst": null, "team": "away", "countsForStats": true, "countsForKeeper": true }
+    ],
+    "mvps": [
+      { "playerId": "meza", "type": "normal" }
+    ],
+    "episode": { "youtubeId": null, "title": "J3 — El Clásico del Buen Gusto", "description": "Volley legendario de Meza que no se grabó (cámara apagada).", "thumbnail": "" }
+  },
+  {
+    "number": 4,
+    "date": "2026-05-01",
+    "narrative": "El Clásico del Trabajo y el Poder",
+    "homeTeam": {
+      "name": "RealBañil",
+      "captain": "gato",
+      "players": ["gato", "meza", "marco", "juandiego", "xanderson", "angel", "andres-gil", "daniscule"],
+      "colors": { "primary": "#2d6a2d", "secondary": "#c0a000" }
+    },
+    "awayTeam": {
+      "name": "Patrones FC",
+      "captain": "josef",
+      "players": ["josef", "danifrg", "winston", "josephine", "lucho", "abdon", "emidio", "jairo"],
+      "colors": { "primary": "#f8f8f8", "secondary": "#d4af37" }
+    },
+    "result": { "home": 5, "away": 1 },
+    "goals": [
+      { "scorer": "andres-gil", "assist": null, "scoredAgainst": "lucho", "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "andres-gil", "assist": null, "scoredAgainst": "lucho", "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "andres-gil", "assist": null, "scoredAgainst": "lucho", "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "xanderson", "assist": "winston", "scoredAgainst": "josephine", "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "xanderson", "assist": "gato", "scoredAgainst": "josephine", "team": "home", "countsForStats": true, "countsForKeeper": true },
+      { "scorer": "danifrg", "assist": null, "scoredAgainst": "daniscule", "team": "away", "countsForStats": true, "countsForKeeper": true }
+    ],
+    "mvps": [
+      { "playerId": "andres-gil", "type": "normal" },
+      { "playerId": "ximena", "type": "honorary", "notes": "Caimán de Oro Honorífico por contribución externa a la liga" }
+    ],
+    "episode": { "youtubeId": null, "title": "J4 — El Clásico Social", "description": "Falta dura de Josef a Gato. Josef pierde su invicto. Hat-trick de Andres Gil.", "thumbnail": "" }
+  },
+  {
+    "number": 5,
+    "date": "2026-05-31",
+    "narrative": "Fuego vs Imperio",
+    "homeTeam": {
+      "name": "Nottingham Prisa",
+      "captain": "abdon",
+      "players": ["abdon", "josef", "gato", "renato", "jose-gonzalez", "daniscule", "marco", "gianni"],
+      "colors": { "primary": "#1a1a4e", "secondary": "#d4af37" }
+    },
+    "awayTeam": {
+      "name": "Los Diablos del Llano",
+      "captain": "josephine",
+      "players": ["josephine", "meza", "danifrg", "juandiego", "xanderson", "alejo", "emidio", "diovanny"],
+      "colors": { "primary": "#8b0000", "secondary": "#111111" }
+    },
+    "result": { "home": 11, "away": 10 },
+    "goals": [
+      { "minute": "3:08", "scorer": "josef", "assist": "jose-gonzalez", "scoredAgainst": "diovanny", "team": "home", "scoreAfter": { "home": 1, "away": 0 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "3:53", "scorer": "meza", "assist": "xanderson", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 1, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "6:00", "scorer": "meza", "assist": "josephine", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 1, "away": 2 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "7:31", "scorer": "juan-suplente", "assist": "jose-gonzalez", "scoredAgainst": "diovanny", "team": "home", "scoreAfter": { "home": 2, "away": 2 }, "countsForStats": true, "countsForKeeper": false, "note": "Gol de suplente: no cuenta como encajado" },
+      { "minute": "9:16", "scorer": "josef", "assist": "gato", "scoredAgainst": "diovanny", "team": "home", "scoreAfter": { "home": 3, "away": 2 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "15:51", "scorer": "xanderson", "assist": null, "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 3, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "18:10", "scorer": "josef", "assist": null, "scoredAgainst": "diovanny", "team": "home", "scoreAfter": { "home": 4, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "39:56", "scorer": "renato", "assist": "jose-gonzalez", "scoredAgainst": "diovanny", "team": "home", "scoreAfter": { "home": 5, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "41:45", "scorer": "abdon", "assist": "jose-gonzalez", "scoredAgainst": "diovanny", "team": "home", "scoreAfter": { "home": 6, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "52:50", "scorer": "josef", "assist": "jose-gonzalez", "scoredAgainst": "diovanny", "team": "home", "scoreAfter": { "home": 7, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "55:17", "scorer": "meza", "assist": "alejo", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 7, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "56:33", "scorer": "jose-gonzalez", "assist": "josef", "scoredAgainst": "diovanny", "team": "home", "scoreAfter": { "home": 8, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "63:27", "scorer": "jose-gonzalez", "assist": "renato", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 9, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "67:39", "scorer": "josef", "assist": null, "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 10, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "68:09", "scorer": "meza", "assist": "juan-suplente", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 10, "away": 5 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "70:31", "scorer": "danifrg", "assist": "xanderson", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 10, "away": 6 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "72:22", "scorer": "jose-gonzalez", "assist": "josef", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 11, "away": 6 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "72:57", "scorer": "juan-suplente", "assist": "danifrg", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 11, "away": 7 }, "countsForStats": true, "countsForKeeper": false, "note": "No cuenta como encajado" },
+      { "minute": "74:48", "scorer": "juan-suplente", "assist": "josephine", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 11, "away": 8 }, "countsForStats": true, "countsForKeeper": false, "note": "No cuenta como encajado" },
+      { "minute": "76:50", "scorer": "juan-suplente", "assist": "xanderson", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 11, "away": 9 }, "countsForStats": true, "countsForKeeper": false, "note": "No cuenta como encajado" },
+      { "minute": "81:38", "scorer": "meza", "assist": "juan-suplente", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 11, "away": 10 }, "countsForStats": true, "countsForKeeper": true }
+    ],
+    "mvps": [
+      { "playerId": "josef", "type": "normal" }
+    ],
+    "episode": { "youtubeId": null, "title": "J5 — Fuego vs Imperio", "description": "21 goles totales, 1 gol de diferencia. El partido más loco de la temporada.", "thumbnail": "" }
+  },
+  {
+    "number": 6,
+    "date": "2026-06-07",
+    "narrative": "Il Derby d'Italia",
+    "homeTeam": {
+      "name": "Los Emperradores",
+      "captain": "emidio",
+      "players": ["emidio", "marco", "meza", "xanderson", "renato", "alejo", "angel", "josephine"],
+      "colors": { "primary": "#0b2a8f", "secondary": "#0a0a0a" }
+    },
+    "awayTeam": {
+      "name": "Perros Viejos",
+      "captain": "gianni",
+      "players": ["gianni", "daniscule", "josef", "juandiego", "abdon", "jose-gonzalez", "danthony", "andres-gil"],
+      "colors": { "primary": "#1c1c20", "secondary": "#f4f4f6" }
+    },
+    "result": { "home": 9, "away": 12 },
+    "goals": [
+      { "minute": "1:30 1T", "scorer": "meza", "assist": null, "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 1, "away": 0 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "2:25 1T", "scorer": "jose-gonzalez", "assist": "abdon", "scoredAgainst": "josephine", "team": "away", "scoreAfter": { "home": 1, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "2:50 1T", "scorer": "renato", "assist": "meza", "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 2, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "10:48 1T", "scorer": "jose-gonzalez", "assist": "andres-gil", "scoredAgainst": "josephine", "team": "away", "scoreAfter": { "home": 2, "away": 2 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "12:43 1T", "scorer": "danthony", "assist": "juandiego", "scoredAgainst": "josephine", "team": "away", "scoreAfter": { "home": 2, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "13:16 1T", "scorer": "renato", "assist": "meza", "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 3, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "14:30 1T", "scorer": "meza", "assist": "renato", "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 4, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "20:03 1T", "scorer": "meza", "assist": "renato", "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 5, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "23:58 1T", "scorer": "josef", "assist": null, "scoredAgainst": "josephine", "team": "away", "scoreAfter": { "home": 5, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "25:58 1T", "scorer": "jose-gonzalez", "assist": "andres-gil", "scoredAgainst": "josephine", "team": "away", "scoreAfter": { "home": 5, "away": 5 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "0:14 2T", "scorer": "meza", "assist": null, "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 6, "away": 5 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "1:15 2T", "scorer": "daniscule", "assist": null, "scoredAgainst": "josephine", "team": "away", "scoreAfter": { "home": 6, "away": 6 }, "countsForStats": true, "countsForKeeper": true, "note": "⚡ Gol de portero" },
+      { "minute": "14:24 2T", "scorer": "jose-gonzalez", "assist": "juandiego", "scoredAgainst": "josephine", "team": "away", "scoreAfter": { "home": 6, "away": 7 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "10:36 3T", "scorer": "marco", "assist": "alejo", "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 7, "away": 7 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "11:30 3T", "scorer": "juandiego", "assist": "danthony", "scoredAgainst": "josephine", "team": "away", "scoreAfter": { "home": 7, "away": 8 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "13:14 3T", "scorer": "danthony", "assist": "abdon", "scoredAgainst": "josephine", "team": "away", "scoreAfter": { "home": 7, "away": 9 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "19:16 3T", "scorer": "meza", "assist": null, "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 8, "away": 9 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "20:42 3T", "scorer": "danthony", "assist": "josef", "scoredAgainst": "josephine", "team": "away", "scoreAfter": { "home": 8, "away": 10 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "22:17 3T", "scorer": "jose-gonzalez", "assist": "abdon", "scoredAgainst": "josephine", "team": "away", "scoreAfter": { "home": 8, "away": 11 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "25:47 3T", "scorer": "renato", "assist": "meza", "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 9, "away": 11 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "27:47 3T", "scorer": "jose-gonzalez", "assist": "josef", "scoredAgainst": "marco", "team": "away", "scoreAfter": { "home": 9, "away": 12 }, "countsForStats": true, "countsForKeeper": true }
+    ],
+    "mvps": [
+      { "playerId": "abdon", "type": "normal" }
+    ],
+    "episode": { "youtubeId": null, "title": "J6 — Il Derby d'Italia", "description": "Perros Viejos (Juventus) vs Los Emperradores (Inter). 21 goles, dos goles de portero (Daniscule y Marco) y Jose Gonzalez con un póker de asistencias y 6 goles.", "thumbnail": "" }
+  },
+  {
+    "number": 7,
+    "date": "2026-06-14",
+    "narrative": "El Duelo Improbable",
+    "homeTeam": {
+      "name": "The Cowboys",
+      "captain": "alejo",
+      "players": ["alejo", "daniscule", "marco", "juandiego", "gato", "renato", "armando", "winston"],
+      "colors": { "primary": "#7a5230", "secondary": "#1a1208" }
+    },
+    "awayTeam": {
+      "name": "Unión Atlético Costilla",
+      "captain": "angel",
+      "players": ["angel", "emidio", "josephine", "danthony", "meza", "xanderson", "danifrg", "josef"],
+      "colors": { "primary": "#b8402f", "secondary": "#efe4cf" }
+    },
+    "result": { "home": 7, "away": 6 },
+    "goals": [
+      { "minute": "21:43 1T", "scorer": "xanderson", "assist": null, "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 0, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "30:00 1T", "scorer": "renato", "assist": null, "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 1, "away": 1 }, "countsForStats": true, "countsForKeeper": true, "note": "Penal" },
+      { "minute": "6:20 2T", "scorer": "josef", "assist": "meza", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 1, "away": 2 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "7:30 2T", "scorer": "renato", "assist": "armando", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 2, "away": 2 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "11:50 2T", "scorer": "gato", "assist": "juandiego", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 3, "away": 2 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "13:46 2T", "scorer": "gato", "assist": "juandiego", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 4, "away": 2 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "18:31 2T", "scorer": "gato", "assist": null, "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 5, "away": 2 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "23:00 2T", "scorer": "josef", "assist": "meza", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 5, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "1:04 3T", "scorer": "meza", "assist": "danifrg", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 5, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "8:19 3T", "scorer": "gato", "assist": "armando", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 6, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "11:54 3T", "scorer": "josef", "assist": "danthony", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 6, "away": 5 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "26:03 3T", "scorer": "armando", "assist": "winston", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 7, "away": 5 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "30:00 3T", "scorer": "xanderson", "assist": "danifrg", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 7, "away": 6 }, "countsForStats": true, "countsForKeeper": true }
+    ],
+    "mvps": [
+      { "playerId": "josephine", "type": "normal" }
+    ],
+    "episode": { "youtubeId": null, "title": "J7 — The Cowboys vs Unión Atlético Costilla", "description": "Debut de Armando con gol. Gato firma un póker. Daniscule y Marco se reparten el arco de los Cowboys.", "thumbnail": "" }
+  },
+  {
+    "number": 8,
+    "date": "2026-06-21",
+    "narrative": "El Derby Vicioso",
+    "homeTeam": {
+      "name": "Alcohólicos de Barril",
+      "captain": "renato",
+      "players": ["renato", "alejo", "danthony", "danifrg", "winston", "russo", "daniscule", "gato"],
+      "colors": { "primary": "#c0392b", "secondary": "#f4f4f6" }
+    },
+    "awayTeam": {
+      "name": "Manchester Piti",
+      "captain": "josef",
+      "players": ["josef", "meza", "juandiego", "armando", "andres-gil", "josephine", "marco", "xanderson"],
+      "colors": { "primary": "#2f323a", "secondary": "#9fb6cf" }
+    },
+    "result": { "home": 9, "away": 6 },
+    "goals": [
+      { "minute": "1:14 1T", "scorer": "danifrg", "assist": "russo", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 1, "away": 0 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "7:29 1T", "scorer": "josef", "assist": "josephine", "scoredAgainst": "winston", "team": "away", "scoreAfter": { "home": 1, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "13:56 1T", "scorer": "russo", "assist": null, "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 2, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "14:45 1T", "scorer": "danthony", "assist": "alejo", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 3, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "21:50 1T", "scorer": "danifrg", "assist": "daniscule", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 4, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "5:20 2T", "scorer": "russo", "assist": null, "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 5, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "12:07 2T", "scorer": "xanderson", "assist": "josef", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 5, "away": 2 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "2:45 3T", "scorer": "andres-gil", "assist": "juandiego", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 5, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "8:15 3T", "scorer": "meza", "assist": "armando", "scoredAgainst": "daniscule", "team": "away", "scoreAfter": { "home": 5, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "18:18 3T", "scorer": "daniscule", "assist": "russo", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 6, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "20:54 3T", "scorer": "danthony", "assist": "renato", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 7, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "24:13 3T", "scorer": "josephine", "assist": null, "scoredAgainst": "winston", "team": "away", "scoreAfter": { "home": 7, "away": 5 }, "countsForStats": true, "countsForKeeper": true, "note": "⚡ Gol de portero" },
+      { "minute": "25:51 3T", "scorer": "danifrg", "assist": "gato", "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 8, "away": 5 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "27:09 3T", "scorer": "meza", "assist": "josephine", "scoredAgainst": "winston", "team": "away", "scoreAfter": { "home": 8, "away": 6 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "28:09 3T", "scorer": "renato", "assist": null, "scoredAgainst": "josephine", "team": "home", "scoreAfter": { "home": 9, "away": 6 }, "countsForStats": true, "countsForKeeper": true }
+    ],
+    "mvps": [
+      { "playerId": "daniscule", "type": "normal" }
+    ],
+    "episode": { "youtubeId": null, "title": "J8 — El Derby Vicioso", "description": "Debut de Russo con 2 goles y 2 asistencias. Danifrg hat-trick. Josephine, portera, marca un gol pero encaja 9.", "thumbnail": "" }
+  },
+  {
+    "number": 9,
+    "date": "2026-06-28",
+    "narrative": "El Derby Viral",
+    "homeTeam": {
+      "name": "Empalidados CF",
+      "captain": "juandiego",
+      "players": ["juandiego", "gato", "jose-gonzalez", "josef", "marco", "xanderson", "angel", "oscar-2"],
+      "colors": { "primary": "#5b6b7a", "secondary": "#e6ebef" }
+    },
+    "awayTeam": {
+      "name": "Los Bubalu",
+      "captain": "danthony",
+      "players": ["danthony", "meza", "daniscule", "armando", "javier", "brayan", "josephine", "oragman"],
+      "colors": { "primary": "#8e44ad", "secondary": "#1a0a22" }
+    },
+    "result": { "home": 6, "away": 5 },
+    "goals": [
+      { "minute": "1T", "scorer": "jose-gonzalez", "assist": null, "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 1, "away": 0 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "1T", "scorer": "jose-gonzalez", "assist": "josef", "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 2, "away": 0 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "1T", "scorer": "josephine", "assist": "brayan", "scoredAgainst": "marco", "team": "away", "scoreAfter": { "home": 2, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "10:00 2T", "scorer": "josef", "assist": "juandiego", "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 3, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "28:00 2T", "scorer": "jose-gonzalez", "assist": "josef", "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 4, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "9:43 3T", "scorer": "jose-gonzalez", "assist": "juandiego", "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 5, "away": 1 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "11:06 3T", "scorer": "meza", "assist": "josephine", "scoredAgainst": "oscar-2", "team": "away", "scoreAfter": { "home": 5, "away": 2 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "18:10 3T", "scorer": "josephine", "assist": "meza", "scoredAgainst": "marco", "team": "away", "scoreAfter": { "home": 5, "away": 3 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "20:12 3T", "scorer": "brayan", "assist": null, "scoredAgainst": "marco", "team": "away", "scoreAfter": { "home": 5, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "28:00 3T", "scorer": "jose-gonzalez", "assist": "gato", "scoredAgainst": "daniscule", "team": "home", "scoreAfter": { "home": 6, "away": 4 }, "countsForStats": true, "countsForKeeper": true },
+      { "minute": "30:00 3T", "scorer": "armando", "assist": "oragman", "scoredAgainst": "marco", "team": "away", "scoreAfter": { "home": 6, "away": 5 }, "countsForStats": true, "countsForKeeper": true }
+    ],
+    "mvps": [
+      { "playerId": "jose-gonzalez", "type": "normal" }
+    ],
+    "episode": { "youtubeId": null, "title": "J9 — El Derby Viral", "description": "Récord: Jose Gonzalez marca 5 goles en un partido (iguala el máximo de la temporada) y es Caimán de Oro. Los Bubalu remontaron de 5-1 a 5-4 antes de caer 6-5. Debutan Javier, Brayan, Oragman y Oscar (nuevo).", "thumbnail": "" }
+  }
+]

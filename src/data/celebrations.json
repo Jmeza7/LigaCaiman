@@ -1,0 +1,26 @@
+{
+  "_comment": "Animación de celebración por jugador. media = ruta al .mp4 en /public/animations (se reproduce en loop, silenciado). Para jugadores sin entrada se muestra el placeholder 'default'.",
+  "default": { "emoji": "🐊", "style": "bounce", "media": null },
+  "players": {
+    "abdon": { "media": "/animations/abdon.mp4" },
+    "alejo": { "media": "/animations/alejo.mp4" },
+    "andres-gil": { "media": "/animations/andres-gil.mp4" },
+    "angel": { "media": "/animations/angel.mp4" },
+    "danifrg": { "media": "/animations/danifrg.mp4" },
+    "daniscule": { "media": "/animations/daniscule.mp4" },
+    "diovanny": { "media": "/animations/diovanny.mp4" },
+    "emidio": { "media": "/animations/emidio.mp4" },
+    "gato": { "media": "/animations/gato.mp4" },
+    "gianni": { "media": "/animations/gianni.mp4" },
+    "jose-gonzalez": { "media": "/animations/jose-gonzalez.mp4" },
+    "josef": { "media": "/animations/josef.mp4" },
+    "josephine": { "media": "/animations/josephine.mp4" },
+    "juandiego": { "media": "/animations/juandiego.mp4" },
+    "lucho": { "media": "/animations/lucho.mp4" },
+    "marco": { "media": "/animations/marco.mp4" },
+    "meza": { "media": "/animations/meza.mp4" },
+    "oscar": { "media": "/animations/oscar.mp4" },
+    "winston": { "media": "/animations/winston.mp4" },
+    "xanderson": { "media": "/animations/xanderson.mp4" }
+  }
+}

@@ -1,0 +1,7 @@
+[
+  { "priority": 1, "name": "THE BRIDGE", "sponsor": "abdon" },
+  { "priority": 2, "name": "Dario", "sponsor": "lucho" },
+  { "priority": 3, "name": "Juanchi", "sponsor": "danifrg" },
+  { "priority": 4, "name": "Javi Gomez", "sponsor": "juandiego" },
+  { "priority": 5, "name": "Juan David", "sponsor": "gato", "note": "Pendiente de confirmar" }
+]

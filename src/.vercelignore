@@ -1,0 +1,9 @@
+# Carpetas fuente duplicadas en public/ o solo de diseño.
+# Ancladas con "/" para NO excluir app/jornadas, public/jornadas, public/animations.
+/animations
+/jornadas
+/design_handoff_liga_caiman
+/videos
+/graficos_j6
+/scripts
+/graficos_j7
