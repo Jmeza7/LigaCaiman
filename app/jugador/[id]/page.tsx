@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { players, getPlayer, createSeasonStats, type FullProfile } from "@/lib/stats";
 import { getActiveSeason } from "@/lib/seasons";
 import { getSeasonBundle } from "@/lib/season-data";
+import { buildCareerProfile } from "@/lib/career";
 import ProfileView from "./ProfileView";
 
 export function generateStaticParams() {
@@ -48,6 +49,7 @@ export default async function JugadorPage({ params }: { params: Promise<{ id: st
   const p = stats.buildFullProfile(id);
   if (!p) notFound();
 
+  const career = buildCareerProfile(id)!;
   const order = stats.playerOrder();
   const leagueMaxGoals = stats.computeGoalscorers()[0]?.goals ?? 0;
   const achievements = buildAchievements(p, leagueMaxGoals);
@@ -63,5 +65,5 @@ export default async function JugadorPage({ params }: { params: Promise<{ id: st
       cardStats: stats.cardStatsFor(r.playerId).cardStats,
     }));
 
-  return <ProfileView p={p} order={order} rivals={rivals} achievements={achievements} leagueMaxGoals={leagueMaxGoals} />;
+  return <ProfileView p={p} order={order} rivals={rivals} achievements={achievements} leagueMaxGoals={leagueMaxGoals} career={career} />;
 }
