@@ -1,10 +1,13 @@
 {
   "goleadores": [
-    { "playerId": "josef", "goals": 2 },
-    { "playerId": "danthony", "goals": 2 },
-    { "playerId": "meza", "goals": 1 },
-    { "playerId": "gato", "goals": 1 },
-    { "playerId": "danifrg", "goals": 1 },
+    { "playerId": "danthony", "goals": 4 },
+    { "playerId": "josef", "goals": 4 },
+    { "playerId": "gato", "goals": 3 },
+    { "playerId": "xanderson", "goals": 3 },
+    { "playerId": "meza", "goals": 3 },
+    { "playerId": "danifrg", "goals": 3 },
+    { "playerId": "renato", "goals": 2 },
+    { "playerId": "alejo", "goals": 1 },
     { "playerId": "ale", "goals": 1 },
     { "playerId": "armando", "goals": 1 },
     { "playerId": "oscar-2", "goals": 1 },
@@ -12,8 +15,12 @@
     { "playerId": "alfredo", "goals": 1 }
   ],
   "asistencias": [
-    { "playerId": "meza", "assists": 2 },
+    { "playerId": "danthony", "assists": 4 },
+    { "playerId": "meza", "assists": 4 },
+    { "playerId": "josephine", "assists": 3 },
     { "playerId": "armando", "assists": 2 },
+    { "playerId": "russo", "assists": 1 },
+    { "playerId": "gato", "assists": 1 },
     { "playerId": "josef", "assists": 1 }
   ],
   "keepers": [
@@ -37,6 +44,9 @@
     { "playerId": "alfredo", "record": ["T"], "points": 2, "isUnbeaten": true },
     { "playerId": "oscar-2", "record": ["T"], "points": 2, "isUnbeaten": true },
     { "playerId": "carlos", "record": ["T"], "points": 2, "isUnbeaten": true },
-    { "playerId": "danthony", "record": ["T"], "points": 2, "isUnbeaten": true }
+    { "playerId": "danthony", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "renato", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "alejo", "record": ["T"], "points": 2, "isUnbeaten": true },
+    { "playerId": "russo", "record": ["T"], "points": 2, "isUnbeaten": true }
   ]
 }

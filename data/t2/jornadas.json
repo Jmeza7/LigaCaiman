@@ -9,22 +9,39 @@
         "homeTeam": {
           "name": "Holandés Errante",
           "captain": "danifrg",
-          "players": ["danifrg", "gato", "daniscule", "ale", "xanderson", "josephine", "marco"],
+          "players": ["danifrg", "gato", "daniscule", "ale", "xanderson", "josephine", "marco", "alejo", "danthony"],
           "colors": { "primary": "#3a3a3a", "secondary": "#f4f4f6" }
         },
         "awayTeam": {
           "name": "Perla Negra",
           "captain": "meza",
-          "players": ["meza", "jose-gonzalez", "josef", "armando", "alfredo", "oscar-2", "carlos", "danthony"],
+          "players": ["meza", "jose-gonzalez", "josef", "armando", "alfredo", "oscar-2", "carlos", "renato", "russo"],
           "colors": { "primary": "#1a1a2e", "secondary": "#c9a35c" }
         },
-        "result": { "home": 9, "away": 4 },
-        "goals": [],
+        "result": { "home": 10, "away": 6 },
+        "goals": [
+          { "scorer": "gato", "assist": null, "team": "home", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "danthony", "assist": "josephine", "team": "home", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "renato", "assist": "russo", "team": "away", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "xanderson", "assist": null, "team": "home", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "meza", "assist": null, "team": "away", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "xanderson", "assist": "danthony", "team": "home", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "danthony", "assist": "josephine", "team": "home", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "danifrg", "assist": "danthony", "team": "home", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "josef", "assist": null, "team": "away", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "xanderson", "assist": "danthony", "team": "home", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "josef", "assist": "meza", "team": "away", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "alejo", "assist": null, "team": "home", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "meza", "assist": "josephine", "team": "away", "countsForStats": true, "countsForKeeper": false, "note": "Josephine jugó temporalmente con Perla Negra en el 3er tiempo por falta de un jugador." },
+          { "scorer": "danifrg", "assist": "gato", "team": "home", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "gato", "assist": "danthony", "team": "home", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "renato", "assist": "meza", "team": "away", "countsForStats": true, "countsForKeeper": false }
+        ],
         "mvps": [],
         "pending": {
-          "goals": true,
+          "goals": false,
           "minutes": true,
-          "note": "Datos de la ida pendientes: goleadores, asistencias, porteros y minutos se añadirán más tarde editando este JSON."
+          "note": "Goles y asistencias confirmados. Minutos de cada gol pendientes. No se contabilizan estadísticas de porteros en este partido (decisión de liga)."
         }
       },
       {
@@ -68,7 +85,7 @@
     "tieResolution": {
       "status": "tied_points_split",
       "pointsEach": 2,
-      "note": "Global 13-13 (9-4 en la ida, 4-9 en la vuelta). Por decisión de liga, cada jugador que participó en la ida o la vuelta recibe 2 puntos — no hay ganador ni perdedor en esta jornada."
+      "note": "Global 14-15 (10-6 en la ida, 4-9 en la vuelta) — Perla Negra queda un gol por delante en el agregado, pero por decisión de liga se mantiene el reparto: cada jugador que participó en la ida o la vuelta recibe 2 puntos, sin ganador ni perdedor en la clasificación."
     },
     "mvps": [{ "playerId": "gato", "type": "normal" }],
     "episode": { "youtubeId": null, "title": "T2 · J1 — Holandés Errante vs Perla Negra", "description": "", "thumbnail": "" }
