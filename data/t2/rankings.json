@@ -2,8 +2,8 @@
   "goleadores": [
     { "playerId": "danthony", "goals": 4 },
     { "playerId": "josef", "goals": 4 },
+    { "playerId": "xanderson", "goals": 4 },
     { "playerId": "gato", "goals": 3 },
-    { "playerId": "xanderson", "goals": 3 },
     { "playerId": "meza", "goals": 3 },
     { "playerId": "danifrg", "goals": 3 },
     { "playerId": "renato", "goals": 2 },
@@ -21,7 +21,8 @@
     { "playerId": "armando", "assists": 2 },
     { "playerId": "russo", "assists": 1 },
     { "playerId": "gato", "assists": 1 },
-    { "playerId": "josef", "assists": 1 }
+    { "playerId": "josef", "assists": 1 },
+    { "playerId": "danifrg", "assists": 1 }
   ],
   "keepers": [
     { "playerId": "daniscule", "pj": 1, "conceded": 9 },

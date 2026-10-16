@@ -18,7 +18,7 @@
           "players": ["meza", "jose-gonzalez", "josef", "armando", "alfredo", "oscar-2", "carlos", "renato", "russo"],
           "colors": { "primary": "#1a1a2e", "secondary": "#c9a35c" }
         },
-        "result": { "home": 10, "away": 6 },
+        "result": { "home": 11, "away": 6 },
         "goals": [
           { "scorer": "gato", "assist": null, "team": "home", "countsForStats": true, "countsForKeeper": false },
           { "scorer": "danthony", "assist": "josephine", "team": "home", "countsForStats": true, "countsForKeeper": false },
@@ -35,7 +35,8 @@
           { "scorer": "meza", "assist": "josephine", "team": "away", "countsForStats": true, "countsForKeeper": false, "note": "Josephine jugó temporalmente con Perla Negra en el 3er tiempo por falta de un jugador." },
           { "scorer": "danifrg", "assist": "gato", "team": "home", "countsForStats": true, "countsForKeeper": false },
           { "scorer": "gato", "assist": "danthony", "team": "home", "countsForStats": true, "countsForKeeper": false },
-          { "scorer": "renato", "assist": "meza", "team": "away", "countsForStats": true, "countsForKeeper": false }
+          { "scorer": "renato", "assist": "meza", "team": "away", "countsForStats": true, "countsForKeeper": false },
+          { "scorer": "xanderson", "assist": "danifrg", "team": "home", "countsForStats": true, "countsForKeeper": false, "note": "Gol que faltaba por añadir al cargar el partido — confirma el 11-6 final." }
         ],
         "mvps": [],
         "pending": {
@@ -85,7 +86,7 @@
     "tieResolution": {
       "status": "tied_points_split",
       "pointsEach": 2,
-      "note": "Global 14-15 (10-6 en la ida, 4-9 en la vuelta) — Perla Negra queda un gol por delante en el agregado, pero por decisión de liga se mantiene el reparto: cada jugador que participó en la ida o la vuelta recibe 2 puntos, sin ganador ni perdedor en la clasificación."
+      "note": "Global 15-15 (11-6 en la ida, 4-9 en la vuelta). Empate real — cada jugador que participó en la ida o la vuelta recibe 2 puntos, sin ganador ni perdedor en esta jornada."
     },
     "mvps": [{ "playerId": "gato", "type": "normal" }],
     "episode": { "youtubeId": null, "title": "T2 · J1 — Holandés Errante vs Perla Negra", "description": "", "thumbnail": "" }
